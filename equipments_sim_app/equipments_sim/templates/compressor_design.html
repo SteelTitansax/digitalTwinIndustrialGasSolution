@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Form -->
+    <div class="col-6">
+        <h4 class="design-input-form">Design Parameters</h4>
+        <form method="POST" action="{% url 'compressor' %}">
+            {% csrf_token %}
+             
+            {% if compressor_parameters %}
+        
+              <!-- Massic Flow (m) -->
+              <div class="mb-3">
+                <label for="m" class="form-label">Massic Flow (m)</label>
+                <input type="number" step="any" class="form-control" id="m" name="m" placeholder="{{compressor_parameters.m}}" disabled>
+              </div>
+
+              <!-- W_total (Kj) -->
+              <div class="mb-3">
+                <label for="W_total" class="form-label">W_total (Kj)</label>
+                <input type="number" step="any" class="form-control" id="W_total" name="W_total" placeholder="{{compressor_parameters.W_total}}" disabled>
+              </div>
+
+              <!-- P_real (W) -->
+              <div class="mb-3">
+                <label for="P_real" class="form-label">P_real (W)</label>
+                <input type="number" step="any" class="form-control" id="P_real" name="P_real" placeholder="{{compressor_parameters.P_real}}" disabled>
+              </div>
+
+              <div class="text-center">
+                 <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
+                 <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
+              </div>
+          </form>
+
+        {% endif%}   
+       <p class="notes">
+          <strong>Output Parameters:</strong>  
+          The compressor outputs include key performance parameters.
+          Massic flow (kg/s) indicates the mass of gas passing through per second.
+          Final Pressure (P2) shows the pressure at the compressor outlet.
+          W_total (kJ) represents the total work input required for compression.
+          P_real (W) is the actual power consumption during operation.
+      </p>
+    </div>
+
+    <!-- Images/Diagrams -->
+
+    <!-- 3D Absorption Column -->
+    <div class="col-6 d-flex flex-column h-100 p-0">
+      <div id="compressor" style="width: 100%; height: 700px;"></div>  
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/compressor.js' %}"></script>
+{% endblock %}

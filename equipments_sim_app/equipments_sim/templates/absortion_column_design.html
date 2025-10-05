@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Form -->
+    <div class="col-6">
+        <h4 class="design-input-form">Design Parameters</h4>
+        <form method="POST" action="{% url 'absortion_column' %}">
+            {% csrf_token %}
+
+            {% if absortion_column_parameters %}
+        
+              <!-- Column Height -->
+              <div class="mb-3">
+                <label for="column_height" class="form-label">Column Height</label>
+                <input type="number" step="any" class="form-control" id="column_height" name="column_height" placeholder="{{absortion_column_parameters.HE}}" disabled>
+              </div>
+
+              <!-- HETP (Height Equivalent to a Theoretical Plate) -->
+              <div class="mb-3">
+              <label for="HETP" class="form-label">HETP (Height Equivalent to a Theoretical Plate)</label>
+              <input type="number" step="any" class="form-control" id="HETP" name="HETP" placeholder="{{absortion_column_parameters.HETP}}" disabled>
+              </div>
+
+              <!-- Liquid Molar Fraction (H2O mols / NaOH mols) (Xn) -->
+              <div class="mb-3">
+              <label for="output_concentration" class="form-label">Liquid Molar Fraction (H2O mols / NaOH mols) (Xn)</label>
+              <input type="number" step="any" class="form-control" id="Xn" name="Xn" placeholder="{{absortion_column_parameters.Xn}}" disabled>
+              </div>
+
+              <!-- Gas Molar Fraction (H2O mols / Air mols) (Yn) -->
+              <div class="mb-3">
+              <label for="output_concentration" class="form-label">Gas Molar Fraction (H2O mols / Air mols) (Yn)</label>
+              <input type="number" step="any" class="form-control" id="Yn" name="Yn" placeholder="{{absortion_column_parameters.Yn}}" disabled>
+              </div>
+
+              
+
+              <!-- Number of plates (ns) -->
+              <div class="mb-3">
+              <label for="number_plates" class="form-label">Number of plates (ns)</label>
+              <input type="number" step="any" class="form-control" id="number_plates" name="number_plates" placeholder="{{absortion_column_parameters.ns}}" disabled>
+              </div>
+
+              <div class="text-center">
+                 <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
+                 <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
+              </div>
+          </form>
+
+        {% endif%}   
+       <p class="notes">
+          <strong>Output Parameters:</strong>  
+          The Height Equivalent to a Theoretical Plate (HETP) indicates the efficiency of mass transfer per plate.  
+          The total column height (HE) is calculated based on HETP and the number of theoretical stages.  
+          Xn represents the mole fraction of solute in the liquid at the column outlet.  
+          ns shows the number of theoretical plates required for the desired separation.
+      </p>
+    </div>
+
+    <!-- Images/Diagrams -->
+
+    <!-- 3D Absorption Column -->
+    <div class="col-6 d-flex flex-column h-100 p-0">
+      <div id="absortionColumn" style="width: 100%; height: 700px;"></div>  
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/absortion_column.js' %}"></script>
+{% endblock %}

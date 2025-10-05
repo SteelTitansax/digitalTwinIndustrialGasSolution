@@ -1,0 +1,9 @@
+pandas
+pydantic
+pydantic-settings
+numpy 
+Coolprop
+tabulate
+scikit-learn
+pandas
+pyodbc

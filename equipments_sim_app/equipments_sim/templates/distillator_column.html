@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Form -->
+    <div class="col-6">
+        <h4 class="design-input-form">Design Parameters</h4>
+        <form method="POST" action="{% url 'distillator_column' %}">
+        {% csrf_token %}
+
+            <!-- Initial Pressure -->
+            <div class="mb-3">
+                <label for="P_in" class="form-label">Initial Pressure</label>
+                <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="200 atm">
+            </div>
+
+            <!-- Initial Temperature -->
+            <div class="mb-3">
+                <label for="T_in" class="form-label">Initial Temperature</label>
+                <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="100 K">
+            </div>
+
+            <!-- Flow Rate -->
+            <div class="mb-3">
+                <label for="flow_rate" class="form-label">Flow Rate</label>
+                <input type="number" step="any" class="form-control" id="flow_rate" name="flow_rate" placeholder="0.85">
+            </div>
+
+            <!-- Energy Consumed -->
+            <div class="mb-3">
+                <label for="energy_consumed" class="form-label">Energy Consumed</label>
+                <input type="number" step="any" class="form-control" id="energy_consumed" name="energy_consumed" placeholder="1000000 Kj">
+            </div>
+
+            <!-- Efficiency -->
+            <div class="mb-3">
+                <label for="efficiency" class="form-label">Efficiency</label>
+                <input type="number" step="any" class="form-control" id="efficiency" name="efficiency" placeholder="numeric factor (0-1)">
+            </div>
+
+
+            <div class="text-center ">
+                <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
+            </div>
+        </form>
+
+        <p class="notes"><strong>Note: </strong>The inputs on this screen define the operating conditions for the distillation column design calculation.
+                        'P_in' and 'T_in' are the initial pressure and temperature of the feed.
+                        'Flow Rate', 'Energy Consumed', and 'Efficiency' describe the process and energy performance.
+                        These values are used to predict the output composition of N2, O2, and Ar from the column.</p>
+    </div>
+
+    <!-- Images/Diagrams -->
+    <div class="col-6 d-flex flex-column h-100 p-0">
+      
+      <div class="h-50 d-flex justify-content-center align-items-center ">
+        <img src="{% static 'img/distillation_column_plans.jpg' %}" 
+             class="distillation_column_plans"
+             alt="Compressor plans"/>
+      </div>
+      
+      <div class="h-50 d-flex justify-content-center align-items-center">
+        <img src="{% static 'img/distillation_column_design.png' %}" 
+             class="distillation_column_design"  
+             alt="Compressor Design"/>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

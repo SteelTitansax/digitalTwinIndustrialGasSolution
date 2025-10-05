@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+
+    <!-- Form -->
+    <div class="col-6">
+        <h4 class="design-input-form">Design Parameters</h4>
+        <form method="POST" action="{% url 'absortion_column' %}">
+            {% csrf_token %}
+
+            <!-- X starting point -->
+            <div class="mb-3">
+            <label for="x_starting_point" class="form-label">X starting point</label>
+            <input type="number" step="any" class="form-control" id="x_starting_point" name="x_starting_point" placeholder="e.g. 0">
+            </div>
+
+            <!-- Y starting point -->
+            <div class="mb-3">
+            <label for="y_starting_point" class="form-label">Y starting point</label>
+            <input type="number" step="any" class="form-control" id="y_starting_point" name="y_starting_point" placeholder="e.g. 0.0048">
+            </div>
+
+            <!-- HETP (Height Equivalent to a Theoretical Plate) -->
+            <div class="mb-3">
+            <label for="HETP" class="form-label">HETP (Height Equivalent to a Theoretical Plate)</label>
+            <input type="number" step="any" class="form-control" id="HETP" name="HETP" placeholder="0.5 (m)">
+            </div>
+
+
+            <div class="text-center ">
+                <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
+            </div>
+        </form>
+        <p class="notes"><strong>Note:</strong> The inputs on this screen define the initial conditions for the absorption column design calculation.
+          'X starting point' represents the starting mole fraction of the solute in the liquid phase.
+          'Y starting point' represents the starting mole fraction of the solute in the gas phase.
+          These values are used to iteratively calculate column design parameters like HETP, HE, product concentration, and number of plates. </p>
+        <h5 class="text-center mt-4 text-danger">
+          {{error}}
+        </h5>
+    </div>
+
+    <!-- Images/Diagrams -->
+
+    <div class="col-6 d-flex flex-column h-100 p-0">
+      
+      
+      <div class="h-50 d-flex justify-content-center align-items-center">
+        <img src="{% static 'img/absortion_column_plans.png' %}" 
+             class="h-90 absortion_column_plans"  
+             alt="absorption column plans"/>
+      </div>
+      
+      
+      <div class="h-50 d-flex justify-content-center align-items-center">
+        <img src="{% static 'img/absortion_column_design.png' %}" 
+             class="w-100 h-100 absortion_column_design"  
+             alt="absorption column design"/>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Form -->
+    <div class="col-6">
+        <h4 class="design-input-form">Joule-Thomson Valve Parameters</h4>
+        <form method="POST" action="{% url 'valve_joule_thompson' %}">
+            {% csrf_token %}
+            
+            <div class="row">
+                <!-- Single column form inputs -->
+                <div class="col-12">
+
+                    <!-- Gas Type -->
+                    <div class="mb-3">
+                        <label for="gas" class="form-label">Gas Type</label>
+                        <input type="text" class="form-control" id="gas" name="gas" placeholder="e.g., Nitrogen">
+                    </div>
+
+                    <!-- Inlet Pressure -->
+                    <div class="mb-3">
+                        <label for="P_in" class="form-label">Inlet Pressure (P_in)</label>
+                        <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="Pa">
+                    </div>
+
+                    <!-- Inlet Temperature -->
+                    <div class="mb-3">
+                        <label for="T_in" class="form-label">Inlet Temperature (T_in)</label>
+                        <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="K">
+                    </div>
+
+                    <!-- Outlet Pressure -->
+                    <div class="mb-3">
+                        <label for="P_out" class="form-label">Outlet Pressure (P_out)</label>
+                        <input type="number" step="any" class="form-control" id="P_out" name="P_out" placeholder="Pa">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
+            </div>
+        </form>
+
+        <p class="notes"><strong>Note: </strong>The inputs on this screen define the inlet and outlet conditions for the Joule-Thompson valve.
+                        'Gas', 'P_in', and 'T_in' describe the initial gas state, while 'P_out' sets the target pressure.
+                        These values are used to calculate the resulting outlet temperature and pressure.
+                        The results help in assessing the cooling effect and sizing of the valve.</p>
+    </div>
+
+    <!-- Images/Diagrams -->
+    <div class="col-6 d-flex flex-column h-100 p-0">
+
+      
+      <div class="h-50 d-flex justify-content-center align-items-center">
+        <img src="{% static 'img/joule_thompson_valve_plans.png' %}" 
+             class="joule_thompson_valve_plans"
+             alt="Joule-Thomson Valve Plans"/>
+      </div>
+
+      
+      <div class="h-50 d-flex justify-content-center align-items-center">
+        <img src="{% static 'img/joule_thompson_valve_design.png' %}" 
+             class="joule_thompson_valve_design"  
+             alt="Joule-Thomson Valve Design"/>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

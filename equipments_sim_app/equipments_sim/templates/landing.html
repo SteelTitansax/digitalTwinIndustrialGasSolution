@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="layout">
+                <div class="left-navbar mt-2">
+                        <div class="equipments-navigation">
+                                        
+                            <a href="/landing">
+                                <img src="{% static 'img/indSimLogo.png' %}" class="logo-navigation" alt="Logo">
+                            </a>
+                        {% for equipment in equipments.equipments %}
+
+                            <div class="equipments-button btn btn-secondary"><a class="text-white decoration-none" href="{{ equipment.link }}">{{equipment.title}}</a></div>
+
+                        {% endfor%}        
+                        </div>
+                
+                        <div class="information">
+                        <i class="fa fa-info-circle info-icon" 
+                        title="Please click over every buttons and select the desired equipment. Introduce the design parameteres and finally publish the operation parameters to the digital twin."
+                        data-bs-toggle="tooltip" 
+                        ></i>
+                        <div class="equipments-button btn btn-danger"><a class="text-white decoration-none" href="/logout">Logout</a></div>
+                        </div>
+                </div>
+
+                <div class="right-body">
+                {% if selected_equipment == "" %}
+                <div class="text-center">
+                    <h2 class="landing-title">Diagram Process Flow</h2>    
+                    <img class="process-flow-diagram" src="{% static 'img/lindeProcessFlow.png' %}" alt="">
+                </div>
+                
+                {% else %}
+                
+                   {% include selected_equipment %}
+                
+                {% endif %}
+                </div>
+        </div>
+
+{% endblock %}
+

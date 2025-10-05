@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+
+    <!-- Form -->
+
+    <div class="col-6">
+        <h4 class="design-input-form">Design Parameters</h4>
+        <form method="POST" action="{% url 'heat_exchanger' %}">
+            {% csrf_token %}
+            {% if heat_exchanger_parameters %}
+            
+            <div class="row">
+             <!-- Column 1 -->
+              <div class="col-6">
+
+                  <!-- Heat transfered (Q) -->
+      
+                  <div class="mb-3">
+                      <label for="Q_air" class="form-label">Heat transfered (Q)</label>
+                      <input type="number" step="any" class="form-control" id="Q_air" name="Q_air" placeholder="{{heat_exchanger_parameters.Q_air}}" disabled>
+                  </div>
+
+                  <!-- Nitrogen Air Flow (Q_nitrogen) -->
+      
+                  <div class="mb-3">
+                      <label for="Q_nitrogen" class="form-label"> Nitrogen Air Flow (Q Nitrogen(</label>
+                      <input type="number" step="any" class="form-control" id="Q_nitrogen" name="Q_nitrogen" placeholder="{{heat_exchanger_parameters.Q_air}}">
+                  </div>
+
+                  <!-- Heater Temperature Variation (delta_T_ml)-->
+      
+                  <div class="mb-3">
+                      <label for="delta_T_ml" class="form-label">Heater Temperature Variation (delta_T_ml)</label>
+                      <input type="number" step="any" class="form-control" id="delta_T_ml" name="delta_T_ml" placeholder="{{heat_exchanger_parameters.delta_T_ml}}">
+                  </div>
+
+                  <!-- Cooling Mass Flow (m cooling) -->
+      
+                  <div class="mb-3">
+                      <label for="m_cooling" class="form-label">Cooling Mass Flow (m cooling)</label>
+                      <input type="number" step="any" class="form-control" id="m_cooling" name="m_cooling" placeholder="{{heat_exchanger_parameters.m_cooling}}">
+                  </div>
+
+                  <!-- Tubes Area (A_tubes) -->
+      
+                  <div class="mb-3">
+                      <label for="A_tubes" class="form-label">Tubes Area (A_tubes) </label>
+                      <input type="number" step="any" class="form-control" id="A_tubes" name="A_tubes" placeholder="{{heat_exchanger_parameters.A_tubes}}">
+                  </div>
+
+                  <!-- Air Speed (v_air) -->
+      
+                  <div class="mb-3">
+                      <label for="v_air" class="form-label">Air Speed (v_air)</label>
+                      <input type="number" step="any" class="form-control" id="v_air" name="v_air" placeholder="{{heat_exchanger_parameters.v_air}}">
+                  </div>
+
+                  <!-- Reynolds Air -->
+       
+                  <div class="mb-3">
+                      <label for="reynolds_air" class="form-label">Reynolds air</label>
+                      <input type="number" step="any" class="form-control" id="reynolds_air" name="reynolds_air" placeholder="{{heat_exchanger_parameters.reynolds_air}}">
+                  </div>
+
+              </div>
+
+              <!-- Column 2 -->
+              <div class="col-6">
+
+                  <!-- Air Friction factor (f_air) -->
+                  <div class="mb-3">
+                      <label for="f_air" class="form-label">Friction factor (f_air)</label>
+                      <input type="number" step="any" class="form-control" id="f_air" name="f_air" placeholder="{{heat_exchanger_parameters.f_air}}">
+                  </div>
+
+                  <!-- Pressure fall down (delta_P_air) -->
+                  <div class="mb-3">
+                      <label for="n" class="form-label">Pressure fall down (delta_P_air)</label>
+                      <input type="number" step="any" class="form-control" id="delta_P_air" name="delta_P_air" placeholder="{{heat_exchanger_parameters.delta_P_air}}">
+                  </div>
+
+                  <!-- Nitrogen Pressure (delta_P_nitrogen) -->
+                  <div class="mb-3">
+                      <label for="delta_P_nitrogen" class="form-label">Nitrogen Pressure (delta_P_nitrogen)</label>
+                      <input type="number" step="any" class="form-control" id="delta_P_nitrogen" name="delta_P_nitrogen" placeholder="{{heat_exchanger_parameters.delta_P_nitrogen}}">
+                  </div>
+
+                  <!-- Nitrogen Volume -->
+                  <div class="mb-3">
+                      <label for="v_nitrogen" class="form-label">Nitrogen Volume</label>
+                      <input type="number" step="any" class="form-control" id="v_nitrogen" name="v_nitrogen" placeholder="{{heat_exchanger_parameters.v_nitrogen}}">
+                  </div>
+
+                  <!-- Reynolds Nitrogen -->
+                  <div class="mb-3">
+                      <label for="reynolds_nitrogen" class="form-label">Reynolds Nitrogen</label>
+                      <input type="number" step="any" class="form-control" id="reynolds_nitrogen" name="reynolds_nitrogen" placeholder="{{heat_exchanger_parameters.reynolds_nitrogen}}">
+                  </div>
+
+                  <!-- Nitrogen Friction Factor (f_nitrogen) -->
+                  <div class="mb-3">
+                      <label for="f_nitrogen" class="form-label">Nitrogen Friction Factor (f_nitrogen)</label>
+                      <input type="number" step="any" class="form-control" id="f_nitrogen" name="f_nitrogen" placeholder="{{heat_exchanger_parameters.f_nitrogen}}">
+                  </div>
+
+
+              </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
+                <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
+            </div>
+        {% endif%}   
+        </form>
+
+
+
+        <p class="notes">
+        <strong>Note:</strong> The calculated results include heat transfer, mass flow, and pressure drops across both air and nitrogen.  
+        These outputs help determine flow velocity, Reynolds numbers, and friction factors for both fluids.  
+        Use these values to verify exchanger efficiency and validate operating conditions.
+        </p>
+
+    </div>
+
+     <!-- Images/Diagrams -->
+
+    <!-- 3D Absorption Column -->
+    <div class="col-6 d-flex flex-column h-100 p-0">
+      <div id="heatExchanger" style="width: 100%; height: 700px;"></div>  
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/heat_exchanger.js' %}"></script>
+{% endblock %}

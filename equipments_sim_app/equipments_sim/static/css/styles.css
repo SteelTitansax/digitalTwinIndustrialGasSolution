@@ -1,0 +1,159 @@
+
+/* General styles */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.text-body-primary {
+    color: #E53935;
+}
+
+.layout {
+    display: flex;       
+    height: 100vh;       
+}
+
+.left-navbar {
+    background-color: #212329;
+    width: 15%;         
+    color: white;
+    padding: 40px;
+    position: sticky;
+    top: 0;
+    height: 100vh;      
+}
+
+.right-body {
+    flex: 1;             
+    padding: 20px;
+    overflow-y: auto;    
+}
+
+.signing
+{
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 50%;
+}
+
+.equipments-button
+{
+    width: 200px;
+    margin-top: 60px;
+}
+
+.equipments-navigation
+{
+    margin-top: 200px;
+}
+
+.logo-navigation{
+    position:   absolute;
+    top:30px;
+    width:70%;
+}
+
+
+.information{
+    text-align: center;
+    margin-top: 60px;
+}
+
+.decoration-none{
+    text-decoration: none;
+}
+
+i{
+    font-size:40px;
+}
+
+.process-flow-diagram{
+    width:70%;
+    padding-top: 2%;
+    margin-left:12%;
+}
+
+.width-45{
+    width:45%
+}
+.landing-title{
+    padding-top: 7%;
+}
+
+.app-description {
+    padding-top: 3%;
+    padding-left: 15.5%;
+    padding-right: 15.5%;
+    text-align: justify;
+}
+
+.notes{
+    padding-top: 5%;
+    text-align: justify;
+}
+/* Absortion column screen */
+
+.absortion_column_plans{
+    width: 70%; 
+    object-fit: contain;
+}
+
+.absortion_column_design{
+    object-fit: contain;
+    margin-bottom: 8%;
+}
+
+.design-input-form{
+    padding-top:9%;
+}
+
+/* Compressor screen */
+
+.compressor_plans{
+    object-fit: contain;
+    padding-bottom: 15%;
+}
+
+.compressor_design{
+    width:48%;
+    height:120%;
+    margin-bottom: 20%;
+}
+
+/* Distillator column screen */
+
+.distillation_column_plans{
+    width:35%;
+}
+
+.distillation_column_design{
+    width:40%;
+    margin-bottom: 5%;
+}
+
+
+/* Heat  exchanger screen */
+
+.heat_exchanger_plans{
+    width: 50%;
+    padding-bottom: 10%;
+}
+
+.heat_exchanger_design{
+    width:50%;
+    margin-bottom: 22%;
+}
+
+
+/* Joule Thompson screen */
+
+.joule_thompson_valve_plans{
+    width: 50%;
+    padding-bottom: 20%;
+}
+
+.joule_thompson_valve_design{
+    width:50%;
+    margin-bottom: 22%;
+}

@@ -1,0 +1,50 @@
+{
+    "equipments" : 
+    [
+        {
+            "title" : "Absortion Column",
+            "button1" : "Design",
+            "button2" : "Recalculate",
+            "button3" : "Visualize Parameters",
+            "button4" : "Submit",
+            "link":"/absortion_column"
+        } 
+        ,
+        {
+            "title" : "Compressor",
+            "button1" : "Design",
+            "button2" : "Recalculate",
+            "button3" : "Visualize Parameters",
+            "button4" : "Submit",
+            "link":"/compressor"
+        } 
+        ,
+        {
+            "title" : "Distillator Column",
+            "button1" : "Design",
+            "button2" : "Recalculate",
+            "button3" : "Visualize Parameters",
+            "button4" : "Submit",
+            "link":"/distillator_column"
+        } 
+        ,
+        {
+            "title" : "Heat Exchanger",
+            "button1" : "Design",
+            "button2" : "Recalculate",
+            "button3" : "Visualize Parameters",
+            "button4" : "Submit",
+            "link":"/heat_exchanger"
+        } 
+        ,
+        {
+            "title" : "Valve Joule Thompson",
+            "button1" : "Design",
+            "button2" : "Recalculate",
+            "button3" : "Visualize Parameters",
+            "button4" : "Submit",
+            "link":"/valve_joule_thompson"
+        } 
+        
+    ]
+}
