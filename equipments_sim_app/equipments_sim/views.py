@@ -268,6 +268,9 @@ def distillator_column(request):
 
 def heat_exchanger(request): 
     """
+    
+        # Support Note : 
+        # ------------------------------------------
         # Heat exchanger parameters
         
         m_air = 4.93  # kg/s
@@ -291,7 +294,9 @@ def heat_exchanger(request):
         mu_air = 0.0000217  # Pa·s
         rho_nitrogen = 800  # kg/m³ (nytrogen líquide density)
         mu_nitrogen = 0.00019  # Pa·s (liquide nytrógen viscosity)
+    
     """
+
     if request.method == 'GET':
 
         equipments = load_json("equipments")
@@ -392,6 +397,64 @@ def heat_exchanger(request):
 
 
 def valve_joule_thompson(request): 
-    equipments = load_json("equipments")
-    selected_equipment = "valve_joule_thompson.html"
-    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment})
+    if request.method == 'GET':
+    
+        equipments = load_json("equipments")
+        selected_equipment = "valve_joule_thompson.html"
+        return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment})
+        
+    else:
+
+        try:
+
+            # Input validations
+            # -----------------
+            
+            if (request.POST["P_in"] == "" or request.POST["T_in"] == "" or request.POST["P_out"] == "" or
+                request.POST["gas"] == "") :
+             
+                error = "Please fill in all the fields and press calculate again."
+             
+                equipments = load_json("equipments")
+                selected_equipment = "valve_joule_thompson.html"
+                return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": error})
+            
+
+            # Heat exchanger url 
+            # --------------------
+            
+            heat_exchanger_url = "http://localhost:7071/api/http_valve_joule_thompson_1"
+                
+            # Heat exchanger payload
+            # ------------------------
+
+            # Heat exchanger parameters
+
+            gas = request.POST["gas"]  # gas name        
+            P_in = float(request.POST["P_in"])  # kg/s
+            T_in = float(request.POST["T_in"])  # K
+            P_out = float(request.POST["P_out"]) # K
+            submit = True
+
+            heat_exchanger_payload = {
+
+                "gas" : gas,  
+                "P_in" : P_in,
+                "T_in" : T_in,
+                "P_out" : P_out,
+                "submit" : submit
+
+            }
+
+            response = requests.post(heat_exchanger_url, data=json.dumps(heat_exchanger_payload))
+            joule_thompson_valve_parameters = response.json()
+            print(f"Joule Thompson Parameters : {joule_thompson_valve_parameters}")
+
+            equipments = load_json("equipments")
+            selected_equipment = "valve_joule_thompson_design.html"
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "joule_thompson_valve_parameters": joule_thompson_valve_parameters, "error": ""})
+
+        except IntegrityError:
+            equipments = load_json("equipments")
+            selected_equipment = "valve_joule_thompson.html"    
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})

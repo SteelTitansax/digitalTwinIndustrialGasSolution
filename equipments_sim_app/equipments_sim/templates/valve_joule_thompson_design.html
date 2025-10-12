@@ -6,36 +6,36 @@
   <div class="row h-100">
     <!-- Form -->
     <div class="col-6">
-        <h4 class="design-input-form">Joule-Thomson Valve Parameters</h4>
+        <h4 class="design-input-form">Design Parameters</h4>
         <form method="POST" action="{% url 'valve_joule_thompson' %}">
             {% csrf_token %}
-            
+            {% if joule_thompson_valve_parameters %}
             <div class="row">
                 <!-- Single column form inputs -->
                 <div class="col-12">
 
-                    <!-- Gas Type -->
-                    <div class="mb-3">
-                        <label for="gas" class="form-label">Gas Type</label>
-                        <input type="text" class="form-control" id="gas" name="gas" placeholder="e.g., Nitrogen">
-                    </div>
-
                     <!-- Inlet Pressure -->
                     <div class="mb-3">
                         <label for="P_in" class="form-label">Inlet Pressure (P_in)</label>
-                        <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="20260000 Pa">
+                        <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="{{joule_thompson_valve_parameters.P_in}}" disabled>
                     </div>
 
                     <!-- Inlet Temperature -->
                     <div class="mb-3">
                         <label for="T_in" class="form-label">Inlet Temperature (T_in)</label>
-                        <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="100 K">
+                        <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="{{joule_thompson_valve_parameters.T_in}}" disabled>
                     </div>
 
                     <!-- Outlet Pressure -->
                     <div class="mb-3">
                         <label for="P_out" class="form-label">Outlet Pressure (P_out)</label>
-                        <input type="number" step="any" class="form-control" id="P_out" name="P_out" placeholder="101325 Pa">
+                        <input type="number" step="any" class="form-control" id="P_out" name="P_out" placeholder="{{joule_thompson_valve_parameters.P_out}}" disabled>
+                    </div>
+
+                    <!-- Outlet Temperature -->
+                    <div class="mb-3">
+                        <label for="T_out" class="form-label">Outlet Temperature (T_out)</label>
+                        <input type="number" step="any" class="form-control" id="T_out" name="T_out" placeholder="{{joule_thompson_valve_parameters.T_out}}" disabled>
                     </div>
 
                 </div>
@@ -43,7 +43,9 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
+                <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
             </div>
+            {% endif%}   
         </form>
 
         <p class="notes"><strong>Note: </strong>The inputs on this screen define the inlet and outlet conditions for the Joule-Thompson valve.
@@ -53,23 +55,17 @@
     </div>
 
     <!-- Images/Diagrams -->
+
+    <!-- 3D Absorption Column -->
     <div class="col-6 d-flex flex-column h-100 p-0">
-
-      
-      <div class="h-50 d-flex justify-content-center align-items-center">
-        <img src="{% static 'img/joule_thompson_valve_plans.png' %}" 
-             class="joule_thompson_valve_plans"
-             alt="Joule-Thomson Valve Plans"/>
-      </div>
-
-      
-      <div class="h-50 d-flex justify-content-center align-items-center">
-        <img src="{% static 'img/joule_thompson_valve_design.png' %}" 
-             class="joule_thompson_valve_design"  
-             alt="Joule-Thomson Valve Design"/>
-      </div>
-
+      <div id="valveJouleThompson" style="width: 100%; height: 700px;"></div>  
     </div>
+
   </div>
 </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/valve_joule_thompson.js' %}"></script>
 {% endblock %}

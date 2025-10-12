@@ -1,5 +1,3 @@
-import numpy as np 
-import logging
 import CoolProp.CoolProp as CP
 
 class Joule_Thompson_Valve:
@@ -14,14 +12,15 @@ class Joule_Thompson_Valve:
         # Entry entrophy calculation
         # --------------------------------
         
-        s_in = CP.PropsSI("S", "P", self.P_in, "T", self.T_in, self.gas)
+        h_in = CP.PropsSI("H", "P", self.P_in, "T", self.T_in, self.gas)
 
         # Out temperature with constant entrophy (isentrópica expansion)
         # --------------------------------------------------------------
 
-        T_out = CP.PropsSI("T", "P", self.P_out, "S", s_in, self.gas)
+        T_out = CP.PropsSI("T", "P", self.P_out, "H", h_in, self.gas)
 
-        return [self.P_in,self.P_out,self.T_in,s_in,T_out]
+        return [self.P_in,self.P_out,self.T_in,T_out]
 
 
 
+        

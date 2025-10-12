@@ -28,6 +28,8 @@ from config import settings
 import pyodbc
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
+    
+    """
 
     server = settings.azure_sql.azure_sql_server
     database = settings.azure_sql.database
@@ -42,7 +44,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
     cursor = cnxn.cursor()
-
+    
+    """
 
     try:
 
@@ -85,7 +88,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                       }
 
         logging.info(return_json)
-
+        
+        """
         # If mode submit we insert simulation in database
 
         if submit : 
@@ -98,8 +102,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             finally:
                 cnxn.commit()
                 cnxn.close()
+        """
 
-    return func.HttpResponse("Request processed successfully.",json.dumps(return_json), status_code=200)
+    return func.HttpResponse(json.dumps(return_json), status_code=200)
     
 
         
