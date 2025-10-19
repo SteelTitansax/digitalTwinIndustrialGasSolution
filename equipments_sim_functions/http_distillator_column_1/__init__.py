@@ -87,31 +87,33 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # Entry data
     
         data = pd.DataFrame({
-            'P_in (atm)': [P_in],
-            'T_in (°C)': [T_in],
-            'Flow Rate (kg/h)': [flow_rate],
-            'Energy Consumed (kWh)': [energy_consumed],
-            'Efficiency': [Efficiency]
+            "P_in": [P_in],
+            "T_in": [T_in],
+            "flow_rate": [flow_rate],
+            "energy_consumed": [energy_consumed],
+            "Efficiency": [Efficiency]
         })
+
 
     
         # Predict
         result = predict(model, data)
         
         # Results
-        """
+        
         logging.info("Output composition:")
         logging.info(f"Results: {result}")
+        logging.info(f"H2_out (%): {result[0][0]:.4f}")
+        logging.info(f"N2_out (%): {result[0][1]:.4f}")
+        logging.info(f"O2_out (%): {result[0][2]:.4f}")
+   
 
-        logging.info(f"N2_out (%): {result[0][0]:.4f}")
-        logging.info(f"O2_out (%): {result[0][1]:.4f}")
-        logging.info(f"Ar_out (%): {result[0][2]:.4f}")
-        """    
-
-        return_json = {
-                        "N2_out" : str(0.77), # m 
-                        "O2_out" : str(0.99), # m
-                        "Ar_out" : str(0.01) # 
+        return_json = { "P_in": str(P_in),
+                        "T_in": str(T_in),
+                        "N2_out" : str(round(result[0][1]*100,2)),  
+                        "O2_out" : str(round(result[0][2]*100,2)), 
+                        "H2_out" : str(round(result[0][0]*100,2)),  
+                        "Efficiency": str(round(Efficiency*100,2))
                       }
 
         logging.info(return_json)

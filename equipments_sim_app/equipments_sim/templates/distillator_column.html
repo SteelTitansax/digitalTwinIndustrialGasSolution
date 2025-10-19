@@ -9,36 +9,36 @@
     <div class="col-6">
         <h4 class="design-input-form">Design Parameters</h4>
         <form method="POST" action="{% url 'distillator_column' %}">
-        {% csrf_token %}
+            {% csrf_token %}
 
             <!-- Initial Pressure -->
             <div class="mb-3">
                 <label for="P_in" class="form-label">Initial Pressure</label>
-                <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="200 atm">
+                <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="101325 Pa">
             </div>
 
             <!-- Initial Temperature -->
             <div class="mb-3">
                 <label for="T_in" class="form-label">Initial Temperature</label>
-                <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="100 K">
+                <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="77 K">
             </div>
 
             <!-- Flow Rate -->
             <div class="mb-3">
                 <label for="flow_rate" class="form-label">Flow Rate</label>
                 <input type="number" step="any" class="form-control" id="flow_rate" name="flow_rate" placeholder="0.85">
-            </div>
+            </div>  
 
             <!-- Energy Consumed -->
             <div class="mb-3">
                 <label for="energy_consumed" class="form-label">Energy Consumed</label>
-                <input type="number" step="any" class="form-control" id="energy_consumed" name="energy_consumed" placeholder="1000000 Kj">
+                <input type="number" step="any" class="form-control" id="energy_consumed" name="energy_consumed" placeholder="277.8 Kw">
             </div>
 
             <!-- Efficiency -->
             <div class="mb-3">
                 <label for="efficiency" class="form-label">Efficiency</label>
-                <input type="number" step="any" class="form-control" id="efficiency" name="efficiency" placeholder="numeric factor (0-1)">
+                <input type="number" step="any" class="form-control" id="efficiency" name="efficiency" placeholder="0.9">
             </div>
 
 
@@ -51,6 +51,9 @@
                         'P_in' and 'T_in' are the initial pressure and temperature of the feed.
                         'Flow Rate', 'Energy Consumed', and 'Efficiency' describe the process and energy performance.
                         These values are used to predict the output composition of N2, O2, and Ar from the column.</p>
+        <h5 class="text-center mt-4 text-danger">
+          {{error}}
+        </h5>
     </div>
 
     <!-- Images/Diagrams -->

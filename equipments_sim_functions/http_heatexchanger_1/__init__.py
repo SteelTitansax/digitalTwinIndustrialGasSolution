@@ -102,20 +102,20 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         result = heatExchanger.kern_dimensioning(rho_air, mu_air, rho_nitrogen, mu_nitrogen)
     
         return_json = {
-                        "Q_air" : str(result[0]), # J/s
-                        "Q_nitrogen" : str(result[1]), # J/s
-                        "delta_T_ml" : str(result[2]), # K
-                        "m_cooling" : str(result[3]), # kg/s
-                        "A_tubes" : str(result[4]), # m2
-                        "v_air" : str(result[5]), # m/s
-                        "reynolds_air" : str(result[6]), # -
-                        "f_air" : str(result[7]), #
-                        "delta_P_air" : str(result[8]), # Pa
-                        "delta_P_nitrogen" : str(result[9]), # Pa
-                        "v_nitrogen" : str(result[10]), # m/s
-                        "reynolds_nitrogen" : str(result[11]), # -
-                        "f_nitrogen" : str(result[12]), #
-                        "delta_nitrogen" : str(result[13]), # -
+                        "Q_air" : str(round(result[0],3)), # J/s
+                        "Q_nitrogen" : str(round(result[1],3)), # J/s
+                        "delta_T_ml" : str(round(result[2],3)), # K
+                        "m_cooling" : str(round(result[3],3)), # kg/s
+                        "A_tubes" : str(round(result[4],3)), # m2
+                        "v_air" : str(round(result[5],3)), # m/s
+                        "reynolds_air" : str(round(result[6],3)), # -
+                        "f_air" : str(round(result[7],3)), #
+                        "delta_P_air" : str(round(result[8],3)), # Pa
+                        "delta_P_nitrogen" : str(round(result[9],3)), # Pa
+                        "v_nitrogen" : str(round(result[10],3)), # m/s
+                        "reynolds_nitrogen" : str(round(result[11],3)), # -
+                        "f_nitrogen" : str(round(result[12],3)), #
+                        "delta_nitrogen" : str(round(result[13],3)) # -
                       }
 
         logging.info(return_json)

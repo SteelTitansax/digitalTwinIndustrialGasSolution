@@ -36,7 +36,7 @@ def signup(request):
                 user.save()
                 login(request,user)
                 return redirect('/landing')
-        except IntegrityError:
+        except Exception as e: 
             return render (request, 'signup.html', {
                 'form': UserCreationForm,
                 'error': 'User already exists'
@@ -130,10 +130,11 @@ def absortion_column(request):
             selected_equipment = "absortion_column_design.html"
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "absortion_column_parameters": absortion_column_parameters, "error": ""})
 
-        except IntegrityError:
+        except Exception as e: 
+            print("printing route to error handling")
             equipments = load_json("equipments")
             selected_equipment = "absortion_column.html"    
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
 
 
     
@@ -196,10 +197,10 @@ def compressor(request):
             selected_equipment = "compressor_design.html"
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "compressor_parameters": compressor_parameters, "error": ""})
 
-        except IntegrityError:
+        except Exception as e: 
             equipments = load_json("equipments")
             selected_equipment = "compressor.html"    
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
 
 
 
@@ -224,7 +225,7 @@ def distillator_column(request):
                 error = "Please fill in all the fields and press calculate again."
              
                 equipments = load_json("equipments")
-                selected_equipment = "distillator.html"
+                selected_equipment = "distillator_column.html"
                 return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": error})
             
 
@@ -260,10 +261,10 @@ def distillator_column(request):
             selected_equipment = "distillator_column_design.html"
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "error": ""})
 
-        except IntegrityError:
+        except Exception as e: 
             equipments = load_json("equipments")
-            selected_equipment = "distillator.html"    
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})
+            selected_equipment = "distillator_column.html"    
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
 
 
 def heat_exchanger(request): 
@@ -317,7 +318,7 @@ def heat_exchanger(request):
                 error = "Please fill in all the fields and press calculate again."
              
                 equipments = load_json("equipments")
-                selected_equipment = "distillator.html"
+                selected_equipment = "heat_exchanger.html"
                 return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": error})
             
 
@@ -389,10 +390,10 @@ def heat_exchanger(request):
             selected_equipment = "heat_exchanger_design.html"
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "heat_exchanger_parameters": heat_exchanger_parameters, "error": ""})
 
-        except IntegrityError:
+        except Exception as e: 
             equipments = load_json("equipments")
             selected_equipment = "heat_exchanger.html"    
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
 
 
 
@@ -454,7 +455,7 @@ def valve_joule_thompson(request):
             selected_equipment = "valve_joule_thompson_design.html"
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "joule_thompson_valve_parameters": joule_thompson_valve_parameters, "error": ""})
 
-        except IntegrityError:
+        except Exception as e: 
             equipments = load_json("equipments")
             selected_equipment = "valve_joule_thompson.html"    
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": IntegrityError})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
