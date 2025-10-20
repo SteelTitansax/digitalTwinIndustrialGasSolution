@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class AzureSQLSettings(BaseSettings):
+class AzureSqlSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', 
                                       env_file_encoding='utf-8', 
                                       env_prefix="AZURE_SQL_", 
@@ -23,7 +23,7 @@ class CosmosDBSettings(BaseSettings):
     CONTAINER: str
 """
 class Settings(BaseSettings):
-    azure_sql: AzureSQLSettings = AzureSQLSettings()
+    azure_sql: AzureSqlSettings = AzureSqlSettings()
     #cosmosdb: CosmosDBSettings = CosmosDBSettings()
 
 settings = Settings()

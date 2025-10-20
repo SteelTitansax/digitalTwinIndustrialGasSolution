@@ -48,10 +48,8 @@
             {% endif%}   
         </form>
 
-        <p class="notes"><strong>Note: </strong>The inputs on this screen define the inlet and outlet conditions for the Joule-Thompson valve.
-                        'Gas', 'P_in', and 'T_in' describe the initial gas state, while 'P_out' sets the target pressure.
-                        These values are used to calculate the resulting outlet temperature and pressure.
-                        The results help in assessing the cooling effect and sizing of the valve.</p>
+        <p class="notes"><strong>Output parameters: </strong>Outlet Temperature (T_out): This value represents the final temperature of the gas after expansion through the Joule-Thomson valve. It indicates the cooling effect produced by the throttling process at constant enthalpy. A decrease in T_out compared to T_in signifies effective Joule-Thomson cooling.
+        Outlet Pressure (P_out): This is the target downstream pressure after the valve. It defines the extent of expansion and is a key input for determining the temperature drop. P_out is typically lower than P_in and helps in characterizing the pressure differential across the valve.</p>
     </div>
 
     <!-- Images/3D representation -->

@@ -81,10 +81,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info(f"Out_Temperature: {result[3]:.2f} K")
         
         return_json = {
-                        "P_in" : str(result[0]), # Pascales
-                        "P_out" : str(result[1]), # Pascales
-                        "T_in" : str(result[2]), # K
-                        "T_out" : str(result[3]), # K
+                        "P_in" : str(round(result[0],3)), # Pascales
+                        "P_out" : str(round(result[1],3)), # Pascales
+                        "T_in" : str(round(result[2],3)), # K
+                        "T_out" : str(round(result[3],3)), # K
                       }
 
         logging.info(return_json)

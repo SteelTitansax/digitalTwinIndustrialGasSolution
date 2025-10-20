@@ -12,8 +12,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from config import settings
 import requests
 import json
+import os
 
 # Auxiliar functions , login and landing page
 # -----------------------------------------------
@@ -112,8 +114,8 @@ def absortion_column(request):
 
             # Absortion column url 
             # --------------------
-            
-            absortion_column_url = "http://localhost:7071/api/http_absortion_column_1"
+
+            absortion_column_url = os.getenv("URL_ABSORTION_COLUMN",settings.url_settings.absortion_column)
 
             x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16] # H2O mols/NaOH
             y = [0.001, 0.0028, 0.0067, 0.01, 0.0126, 0.0142, 0.0157, 0.0170, 0.0177, 0.0190, 0.0202] # H2O mols/dry air mols
@@ -142,7 +144,6 @@ def absortion_column(request):
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "absortion_column_parameters": absortion_column_parameters, "error": ""})
 
         except Exception as e: 
-            print("printing route to error handling")
             equipments = load_json("equipments")
             selected_equipment = "absortion_column.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
@@ -177,7 +178,7 @@ def compressor(request):
             # Compressor url 
             # --------------------
             
-            compressor_url = "http://localhost:7071/api/http_compressor_1"
+            compressor_url = os.getenv("URL_COMPRESSOR",settings.url_settings.compressor)
                 
             # Compressor payload
             # ------------------------
@@ -243,7 +244,7 @@ def distillator_column(request):
             # Distillator url 
             # --------------------
             
-            distillator_url = "http://localhost:7071/api/http_distillator_column_1"
+            distillator_url = os.getenv("URL_DISTILLATOR_COLUMN",settings.url_settings.distillator_column)
                 
             # Distillator payload
             # ------------------------
@@ -308,7 +309,7 @@ def heat_exchanger(request):
             # Heat exchanger url 
             # ------------------------
             
-            heat_exchanger_url = "http://localhost:7071/api/http_heatexchanger_1"
+            heat_exchanger_url = os.getenv("URL_HEAT_EXCHANGER",settings.url_settings.heat_exchanger)
                 
             # Heat exchanger payload
             # ------------------------
@@ -404,15 +405,15 @@ def valve_joule_thompson(request):
                 return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": error})
             
 
-            # Heat exchanger url 
+            # Valve Joule Thompson url 
             # --------------------
             
-            heat_exchanger_url = "http://localhost:7071/api/http_valve_joule_thompson_1"
+            valve_joule_thompson_url = os.getenv("URL_VALVE_JOULE_THOMPSON",settings.url_settings.valve_joule_thompson)
                 
-            # Heat exchanger payload
+            # Valve Joule Thompson payload
             # ------------------------
 
-            # Heat exchanger parameters
+            # Valve Joule Thompson parameters
 
             gas = request.POST["gas"]  # gas name        
             P_in = float(request.POST["P_in"])  # kg/s
@@ -420,7 +421,7 @@ def valve_joule_thompson(request):
             P_out = float(request.POST["P_out"]) # K
             submit = True
 
-            heat_exchanger_payload = {
+            valve_joule_thompson_payload = {
 
                 "gas" : gas,  
                 "P_in" : P_in,
@@ -430,7 +431,7 @@ def valve_joule_thompson(request):
 
             }
 
-            response = requests.post(heat_exchanger_url, data=json.dumps(heat_exchanger_payload))
+            response = requests.post(valve_joule_thompson_url, data=json.dumps(valve_joule_thompson_payload))
             joule_thompson_valve_parameters = response.json()
             print(f"Joule Thompson Parameters : {joule_thompson_valve_parameters}")
 
