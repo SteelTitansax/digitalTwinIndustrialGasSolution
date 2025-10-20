@@ -30,9 +30,16 @@
                 <input type="number" step="any" class="form-control" id="P_real" name="P_real" placeholder="{{compressor_parameters.P_real}} Kw" disabled>
               </div>
 
+              <!-- Publish variable -->
+              <div class="mb-3">
+                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode">
+              </div>
+              
               <div class="text-center">
                  <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
-                 <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
+                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2" onclick="setPublish(true)">
+                   Publish
+                 </button>
               </div>
           </form>
 

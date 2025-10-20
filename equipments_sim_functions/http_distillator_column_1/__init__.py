@@ -26,7 +26,6 @@ import json
 import joblib
 import numpy as np
 import pandas as pd
-from config import settings 
 import pyodbc
 import os 
 
@@ -37,25 +36,6 @@ def predict(model, input_data):
     return model.predict(input_data)
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-
-    """
-    # Note : in this stage of the development this code is not necesary, at the moment will be commented
-    # ---------------------------------------------------------------------------------------------------
-    
-    server = settings.azure_sql.azure_sql_server
-    database = settings.azure_sql.database
-    username = settings.azure_sql.username
-    password = settings.azure_sql.password
-    drivers = [item for item in pyodbc.drivers()]
-    driver = drivers[-1]
-    logging.info("driver:{}".format(driver))
-    
-
-    #Create a connection string
-
-    cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    """
     
     try:
 
@@ -118,20 +98,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         logging.info(return_json)
 
-        """
-        # If mode submit we insert simulation in database
-
-        if submit : 
-            
-            try:    
-                insert_query ="INSERT INTO [dbo].[xxxx] ([N2_out],[O2_out],[Ar_out]) VALUES (?,?,?)"
-                cursor.execute(insert_query,str(result[0]),str(result[1]),str(result[2]),str(result[3]))       
-            except:
-                cnxn.rollback()
-            finally:
-                cnxn.commit()
-                cnxn.close()
-        """    
             
     return func.HttpResponse(json.dumps(return_json), status_code=200)
     

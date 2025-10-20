@@ -2,26 +2,10 @@ import logging
 import azure.functions as func
 from http_heatexchanger_1.heat_exchanger import HeatExchanger
 import json
-from config import settings 
 import pyodbc
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    """
-    server = settings.azure_sql.azure_sql_server
-    database = settings.azure_sql.database
-    username = settings.azure_sql.username
-    password = settings.azure_sql.password
-    drivers = [item for item in pyodbc.drivers()]
-    driver = drivers[-1]
-    logging.info("driver:{}".format(driver))
-    
-
-    #Create a connection string
-
-    cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    """
-    
+        
     try:
 
         req_body = req.get_json()
@@ -94,23 +78,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                       }
 
         logging.info(return_json)
-        """
-
-        # If mode submit we insert simulation in database
-
-        if submit : 
-            
-            try:    
-                insert_query ="INSERT INTO [dbo].[xxxx] ([Q_air],[Q_nitrogen],[delta_T_ml],[m_cooling],[A_tubes],[v_air],[reynolds_air],[f_air],[delta_P_air],[delta_P_nitrogen],[v_nitrogen],[reynolds_nitrogen],[f_nitrogen],[delta_nitrogen]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
-                cursor.execute(insert_query,str(result[0]),str(result[1]),str(result[2]),str(result[3]),result[4],str(result[5]),str(result[6]),str(result[7]),result[8],str(result[9]),str(result[10]),str(result[11]),str(result[12]),str(result[13]))       
-            except:
-                cnxn.rollback()
-            finally:
-                cnxn.commit()
-                cnxn.close()
-        
-        """
-
 
     return func.HttpResponse(json.dumps(return_json), status_code=200)
     

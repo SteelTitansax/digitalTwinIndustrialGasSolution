@@ -42,13 +42,22 @@
               <input type="number" step="any" class="form-control" id="number_plates" name="number_plates" placeholder="{{absortion_column_parameters.ns}} adimensional" disabled>
               </div>
 
+              <!-- Publish variable -->
+              <div class="mb-3">
+                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode">
+              </div>
+
               <div class="text-center">
                  <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
-                 <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
+                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2" onclick="setPublish(true)">
+                   Publish
+                 </button>
               </div>
-          </form>
+          
+        {% endif %}
+        </form>
 
-        {% endif%}   
+           
        <p class="notes">
           <strong>Output Parameters:</strong>  
           The Height Equivalent to a Theoretical Plate (HETP) indicates the efficiency of mass transfer per plate.  
@@ -72,3 +81,4 @@
 {% block scripts %}
 <script src="{% static 'js/absortion_column.js' %}"></script>
 {% endblock %}
+

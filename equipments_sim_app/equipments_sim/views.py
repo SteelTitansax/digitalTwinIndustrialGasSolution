@@ -13,9 +13,20 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from config import settings
+from equipments_sim.database import absortion_column_publish
+import pyodbc
 import requests
 import json
 import os
+
+# Database details 
+# ------------------------------------------
+server = os.getenv("AZURE_SQL_SERVER", settings.azure_settings.SERVER)
+database = os.getenv("AZURE_SQL_DATABASE", settings.azure_settings.DATABASE)
+username = os.getenv("AZURE_SQL_USERNAME", settings.azure_settings.USERNAME)
+password = os.getenv("AZURE_SQL_PASSWORD", settings.azure_settings.PASSWORD)
+drivers = [item for item in pyodbc.drivers()]
+driver = drivers[-1]
 
 # Auxiliar functions , login and landing page
 # -----------------------------------------------
@@ -102,6 +113,26 @@ def absortion_column(request):
     else : 
         try:
 
+            publish_mode = request.POST.get('publish_mode')
+            
+            if publish_mode == "true":
+                HE = request.POST.get('HE')
+                HETP = request.POST.get('HETP')
+                Xn = request.POST.get('Xn')
+                ns = request.POST.get('ns')
+                try: 
+
+                    absortion_column_publish(driver, server, database, UID, PWD, HE, HETP, Xn, ns)
+                    print("Absortion column saved sucessfully in database!")
+                
+                except Exception as e:                     
+                    print(f"Error saving config in database {e}")
+                    error ="Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "absortion_column_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "absortion_column_parameters": absortion_column_parameters, "error": error})
+
+
             # Input validations
             # -----------------
 
@@ -111,7 +142,6 @@ def absortion_column(request):
                 selected_equipment = "absortion_column.html"
                 return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": error})
             
-
             # Absortion column url 
             # --------------------
 
@@ -162,6 +192,26 @@ def compressor(request):
     else : 
 
         try:
+
+            publish_mode = request.POST.get('publish_mode')
+            
+            if publish_mode == "true":
+               
+                try: 
+                    m = request.POST.get('m')
+                    W_total = request.POST.get('W_total')
+                    P_real =  request.POST.get('W_total')
+                    compressor_publish(driver, server, database, UID, PWD, m, W_total, P_real)
+                    print("Compressor saved sucessfully in database!")
+                
+                except Exception as e: 
+                    
+                    print(f"Error saving config in database {e}")
+                    error = "Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "compressor_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "compressor_parameters": compressor_parameters, "error": error})
+
 
             # Input validations
             # -----------------

@@ -23,31 +23,10 @@
 import logging
 import azure.functions as func
 import json
-import pyodbc
 from tabulate import tabulate
 from http_absortion_column_1.absortion_column import AbsorptionColumn
-from config import settings 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    """
-    
-    SQL NOT IMPLEMENTED YET 
-
-    server = settings.azure_sql.azure_sql_server
-    database = settings.azure_sql.database
-    username = settings.azure_sql.username
-    password = settings.azure_sql.password
-    drivers = [item for item in pyodbc.drivers()]
-    driver = drivers[-1]
-    logging.info("driver:{}".format(driver))
-    
-
-    #Create a connection string
-
-    cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    
-    """
     try:
 
         req_body = req.get_json()
@@ -104,22 +83,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         logging.info(return_json)
 
-        # If mode submit we insert simulation in database
-        
-        """
-        NOTE : TO BE IMPLEMENTED IN CLOUD
-
-        if submit : 
-            
-            try:    
-                insert_query ="INSERT INTO [dbo].[xxxx] ([HE],[HETP],[Xn],[ns]) VALUES (?,?,?,?)"
-                cursor.execute(insert_query,str(result[0]),str(result[1]),str(result[2]),str(result[3]))       
-            except:
-                cnxn.rollback()
-            finally:
-                cnxn.commit()
-                cnxn.close()
-        """    
         logging.info("Request processed successfully.")
 
     return func.HttpResponse(json.dumps(return_json), status_code=200)

@@ -24,28 +24,9 @@ import logging
 import azure.functions as func
 from http_valve_joule_thompson_1.valve_joule_thompson import Joule_Thompson_Valve
 import json
-from config import settings 
 import pyodbc
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    
-    """
-
-    server = settings.azure_sql.azure_sql_server
-    database = settings.azure_sql.database
-    username = settings.azure_sql.username
-    password = settings.azure_sql.password
-    drivers = [item for item in pyodbc.drivers()]
-    driver = drivers[-1]
-    logging.info("driver:{}".format(driver))
-    
-
-    #Create a connection string
-
-    cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    
-    """
 
     try:
 
@@ -59,9 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     finally:
 
         # Variable declarations
-        # Entry conditions 
         # --------------------------------------------
-        # Example: 200 bar a 100 K (Nitrogen)
 
         gas = req_body.get('gas')
         P_in = req_body.get('P_in') # Entry pressure in Pascals (200 bar)
@@ -89,20 +68,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         logging.info(return_json)
         
-        """
-        # If mode submit we insert simulation in database
-
-        if submit : 
-            
-            try:    
-                insert_query ="INSERT INTO [dbo].[xxxx] ([P_in],[P_out],[T_in],[T_out]) VALUES (?,?,?,?)"
-                cursor.execute(insert_query,str(result[0]),str(result[1]),str(result[2]),str(result[3]))       
-            except:
-                cnxn.rollback()
-            finally:
-                cnxn.commit()
-                cnxn.close()
-        """
 
     return func.HttpResponse(json.dumps(return_json), status_code=200)
     

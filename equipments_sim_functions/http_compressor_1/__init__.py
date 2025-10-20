@@ -26,29 +26,9 @@ import azure.functions as func
 from http_compressor_1.compressor import Compressor
 import json
 import pyodbc
-from config import settings
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     
-    """
-    # Note : Code commented, not necessary in this point of the development 
-    # ----------------------------------------------------------------------
-
-    server = settings.azure_sql.azure_sql_server
-    database = settings.azure_sql.database
-    username = settings.azure_sql.username
-    password = settings.azure_sql.password
-    drivers = [item for item in pyodbc.drivers()]
-    driver = drivers[-1]
-    logging.info("driver:{}".format(driver))
-    
-
-    #Create a connection string
-
-    cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    
-    """
     try:
 
         req_body = req.get_json()
@@ -84,24 +64,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                       }
 
         logging.info(return_json)
-
-        """
-        # Note : Code not necessary for this development stage 
-        # ------------------------------------------------------
-
-        # If mode submit we insert simulation in database
-
-        if submit : 
-            
-            try:    
-                insert_query ="INSERT INTO [dbo].[xxxx] ([m],[W_total],[P_real]) VALUES (?,?,?)"
-                cursor.execute(insert_query,str(result[0]),str(result[1]),str(result[2]),str(result[3]))       
-            except:
-                cnxn.rollback()
-            finally:
-                cnxn.commit()
-                cnxn.close()
-        """            
 
     return func.HttpResponse(json.dumps(return_json), status_code=200)
     
