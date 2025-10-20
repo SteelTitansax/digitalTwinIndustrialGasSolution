@@ -12,22 +12,22 @@
              
             {% if compressor_parameters %}
         
-              <!-- Massic Flow (m) -->
+              <!-- Massic Flow (kg/s) -->
               <div class="mb-3">
-                <label for="m" class="form-label">Massic Flow (m)</label>
-                <input type="number" step="any" class="form-control" id="m" name="m" placeholder="{{compressor_parameters.m}}" disabled>
+                <label for="m" class="form-label">Massic Flow</label>
+                <input type="number" step="any" class="form-control" id="m" name="m" placeholder="{{compressor_parameters.m}} Kg/s" disabled>
               </div>
 
-              <!-- W_total (Kj) -->
+              <!-- W_total (Kw) -->
               <div class="mb-3">
-                <label for="W_total" class="form-label">W_total (Kj)</label>
-                <input type="number" step="any" class="form-control" id="W_total" name="W_total" placeholder="{{compressor_parameters.W_total}}" disabled>
+                <label for="W_total" class="form-label">W_total</label>
+                <input type="number" step="any" class="form-control" id="W_total" name="W_total" placeholder="{{compressor_parameters.W_total}} Kw" disabled>
               </div>
 
-              <!-- P_real (W) -->
+              <!-- P_real (Kw) -->
               <div class="mb-3">
-                <label for="P_real" class="form-label">P_real (W)</label>
-                <input type="number" step="any" class="form-control" id="P_real" name="P_real" placeholder="{{compressor_parameters.P_real}}" disabled>
+                <label for="P_real" class="form-label">P_real</label>
+                <input type="number" step="any" class="form-control" id="P_real" name="P_real" placeholder="{{compressor_parameters.P_real}} Kw" disabled>
               </div>
 
               <div class="text-center">

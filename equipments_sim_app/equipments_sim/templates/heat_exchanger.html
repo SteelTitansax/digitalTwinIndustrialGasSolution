@@ -18,32 +18,32 @@
                   
                   <!-- Air Mass Flow -->
                   <div class="mb-3">
-                      <label for="m_air" class="form-label">Air Mass Flow</label>
-                      <input type="number" step="any" class="form-control" id="m_air" name="m_air" placeholder="4.93 kg/s">
+                      <label for="m_air" class="form-label">Air Mass Flow (kg/s)</label>
+                      <input type="number" step="any" class="form-control" id="m_air" name="m_air" placeholder="4.93">
                   </div>
 
                   <!-- Air Inlet Temperature -->
                   <div class="mb-3">
-                      <label for="T_air_in" class="form-label">Air Inlet Temperature</label>
-                      <input type="number" step="any" class="form-control" id="T_air_in" name="T_air_in" placeholder="298 K">
+                      <label for="T_air_in" class="form-label">Air Inlet Temperature (K)</label>
+                      <input type="number" step="any" class="form-control" id="T_air_in" name="T_air_in" placeholder="298">
                   </div>
 
                   <!-- Air Outlet Temperature -->
                   <div class="mb-3">
-                      <label for="T_air_out" class="form-label">Air Outlet Temperature</label>
-                      <input type="number" step="any" class="form-control" id="T_air_out" name="T_air_out" placeholder="100 K">
+                      <label for="T_air_out" class="form-label">Air Outlet Temperature (K)</label>
+                      <input type="number" step="any" class="form-control" id="T_air_out" name="T_air_out" placeholder="100">
                   </div>
 
                   <!-- Cooling Flow Inlet -->
                   <div class="mb-3">
-                      <label for="T_cooling_flow_in" class="form-label">Cooling Flow Inlet Temp</label>
-                      <input type="number" step="any" class="form-control" id="T_cooling_flow_in" name="T_cooling_flow_in" placeholder="77 K">
+                      <label for="T_cooling_flow_in" class="form-label">Cooling Flow Inlet Temp (K)</label>
+                      <input type="number" step="any" class="form-control" id="T_cooling_flow_in" name="T_cooling_flow_in" placeholder="77">
                   </div>
 
                   <!-- Cooling Flow Outlet -->
                   <div class="mb-3">
-                      <label for="T_cooling_flow_out" class="form-label">Cooling Flow Outlet Temp</label>
-                      <input type="number" step="any" class="form-control" id="T_cooling_flow_out" name="T_cooling_flow_out" placeholder="100 K">
+                      <label for="T_cooling_flow_out" class="form-label">Cooling Flow Outlet Temp (K)</label>
+                      <input type="number" step="any" class="form-control" id="T_cooling_flow_out" name="T_cooling_flow_out" placeholder="100">
                   </div>
 
               </div>
@@ -53,26 +53,26 @@
 
                   <!-- Tube Diameter -->
                   <div class="mb-3">
-                      <label for="D" class="form-label">Tube Diameter (D)</label>
-                      <input type="number" step="any" class="form-control" id="D" name="D" placeholder="0.02 m">
+                      <label for="D" class="form-label">Tube Diameter (m)</label>
+                      <input type="number" step="any" class="form-control" id="D" name="D" placeholder="0.02">
                   </div>
 
                   <!-- Number of Tubes -->
                   <div class="mb-3">
-                      <label for="n" class="form-label">Number of Tubes (n)</label>
+                      <label for="n" class="form-label">Number of Tubes (adimensional)</label>
                       <input type="number" step="any" class="form-control" id="n" name="n" placeholder="50">
                   </div>
 
                   <!-- Exchange Length -->
                   <div class="mb-3">
-                      <label for="L" class="form-label">Exchange Length (L)</label>
-                      <input type="number" step="any" class="form-control" id="L" name="L" placeholder="5 m">
+                      <label for="L" class="form-label">Exchange Length (m)</label>
+                      <input type="number" step="any" class="form-control" id="L" name="L" placeholder="5">
                   </div>
 
                   <!-- Nitrogen Flow -->
                   <div class="mb-3">
-                      <label for="m_nitrogen" class="form-label">Nitrogen flow</label>
-                      <input type="number" step="any" class="form-control" id="m_nitrogen" name="m_nitrogen" placeholder="2.78 kg/s">
+                      <label for="m_nitrogen" class="form-label">Nitrogen flow (kg/s)</label>
+                      <input type="number" step="any" class="form-control" id="m_nitrogen" name="m_nitrogen" placeholder="2.78">
                   </div>
 
               </div>
@@ -81,6 +81,7 @@
             <div class="text-center pt-4    ">
                 <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
             </div>
+            
         </form>
 
         <p class="notes"><strong>Note: </strong>The inputs on this screen define the operating and geometric conditions of the heat exchanger.

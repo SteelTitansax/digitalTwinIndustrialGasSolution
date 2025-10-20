@@ -52,31 +52,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         mu_nitrogen = req_body.get('mu_nitrogen') # Pa·s (liquide nytrógen viscosity)
         submit = req_body.get('submit') # boolean
 
-        """
-        # Heat exchanger parameters
-        
-        m_air = 4.93  # kg/s
-        T_air_in = 298  # K
-        T_air_out = 100  # K
-        T_cooling_flow_in = 77  # K (phase change liquide nytrogen)
-        T_cooling_flow_out = 100  # K
-        m_nitrogen = 2.78  # kg/s
-        D = 0.02  # m (tubes diameter )
-        n = 50  # number of tubes
-        L = 5  # m (exchange length)
-
-        # Heat calorific capacity parameters
-        
-        C_p_air = 1005  # J/kg·K (air heat capacity)
-        C_p_nitrogen_liquid = 2.9 * 1000  # J/kg·K (nytrogen liquide heat capacity J/kg·K)
-
-        # Reynolds parameters
-        
-        rho_air = 1.18  # kg/m³
-        mu_air = 0.0000217  # Pa·s
-        rho_nitrogen = 800  # kg/m³ (nytrogen líquide density)
-        mu_nitrogen = 0.00019  # Pa·s (liquide nytrógen viscosity)
-        """
 
         # Heat exchanger initialization
         logging.info("Heat exchanger initialization ...")

@@ -12,36 +12,34 @@
 
             {% if absortion_column_parameters %}
         
-              <!-- Column Height -->
+              <!-- Column Height (m)-->
               <div class="mb-3">
                 <label for="column_height" class="form-label">Column Height</label>
-                <input type="number" step="any" class="form-control" id="column_height" name="column_height" placeholder="{{absortion_column_parameters.HE}}" disabled>
+                <input type="number" step="any" class="form-control" id="column_height" name="column_height" placeholder="{{absortion_column_parameters.HE}} m" disabled>
               </div>
 
               <!-- HETP (Height Equivalent to a Theoretical Plate) -->
               <div class="mb-3">
               <label for="HETP" class="form-label">HETP (Height Equivalent to a Theoretical Plate)</label>
-              <input type="number" step="any" class="form-control" id="HETP" name="HETP" placeholder="{{absortion_column_parameters.HETP}}" disabled>
+              <input type="number" step="any" class="form-control" id="HETP" name="HETP" placeholder="{{absortion_column_parameters.HETP}} m" disabled>
               </div>
 
               <!-- Liquid Molar Fraction (H2O mols / NaOH mols) (Xn) -->
               <div class="mb-3">
-              <label for="output_concentration" class="form-label">Liquid Molar Fraction (H2O mols / NaOH mols) (Xn)</label>
-              <input type="number" step="any" class="form-control" id="Xn" name="Xn" placeholder="{{absortion_column_parameters.Xn}}" disabled>
+              <label for="output_concentration" class="form-label">Liquid Molar Fraction (Xn)</label>
+              <input type="number" step="any" class="form-control" id="Xn" name="Xn" placeholder="{{absortion_column_parameters.Xn}} (H2O mols / NaOH mols)" disabled>
               </div>
 
               <!-- Gas Molar Fraction (H2O mols / Air mols) (Yn) -->
               <div class="mb-3">
-              <label for="output_concentration" class="form-label">Gas Molar Fraction (H2O mols / Air mols) (Yn)</label>
-              <input type="number" step="any" class="form-control" id="Yn" name="Yn" placeholder="{{absortion_column_parameters.Yn}}" disabled>
+              <label for="output_concentration" class="form-label">Gas Molar Fraction (Yn)</label>
+              <input type="number" step="any" class="form-control" id="Yn" name="Yn" placeholder="{{absortion_column_parameters.Yn}} (H2O mols / Air mols)" disabled>
               </div>
-
-              
 
               <!-- Number of plates (ns) -->
               <div class="mb-3">
               <label for="number_plates" class="form-label">Number of plates (ns)</label>
-              <input type="number" step="any" class="form-control" id="number_plates" name="number_plates" placeholder="{{absortion_column_parameters.ns}}" disabled>
+              <input type="number" step="any" class="form-control" id="number_plates" name="number_plates" placeholder="{{absortion_column_parameters.ns}} adimensional" disabled>
               </div>
 
               <div class="text-center">
