@@ -1,3 +1,11 @@
+# Views section DWSIM app  
+# -----------------------------------------------------------------------------------------------
+# Author : Manuel Portero Leiva 
+# -----------------------------------------------------------------------------------------------
+# Purpose : Controller part of the DWSIM application. Acts as a app backend.
+# ----------------------------------------------------------------------------------------------- 
+
+
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -7,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 import json
 
-# Views definition
+# Auxiliar functions , login and landing page
 # -----------------------------------------------
 
 def load_json(file_name):
@@ -78,6 +86,9 @@ def landing(request):
     selected_equipment = ""
     return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment})
 
+# Equipments design functions
+# -----------------------------------------------
+
 def absortion_column(request): 
     
     if request.method == 'GET':
@@ -104,11 +115,11 @@ def absortion_column(request):
             
             absortion_column_url = "http://localhost:7071/api/http_absortion_column_1"
 
-            x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16]
-            y = [0.001, 0.0028, 0.0067, 0.01, 0.0126, 0.0142, 0.0157, 0.0170, 0.0177, 0.0190, 0.0202]
-            x_starting_point = float(request.POST["x_starting_point"])
-            y_starting_point = float(request.POST["y_starting_point"])
-            HETP = float(request.POST["HETP"])
+            x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 16] # H2O mols/NaOH
+            y = [0.001, 0.0028, 0.0067, 0.01, 0.0126, 0.0142, 0.0157, 0.0170, 0.0177, 0.0190, 0.0202] # H2O mols/dry air mols
+            x_starting_point = float(request.POST["x_starting_point"]) # H2O mols/NaOH
+            y_starting_point = float(request.POST["y_starting_point"]) # H2O mols/dry air mols
+            HETP = float(request.POST["HETP"]) # m
                 
             # Absortion column payload
             # ------------------------
@@ -171,11 +182,11 @@ def compressor(request):
             # Compressor payload
             # ------------------------
 
-            P1 = float(request.POST["P1"])
-            P2 = float(request.POST["P2"])
-            Vm = float(request.POST["Vm"])
-            T = float(request.POST["T"])
-            Q = float(request.POST["Q"])
+            P1 = float(request.POST["P1"]) # Pa
+            P2 = float(request.POST["P2"]) # Pa
+            Vm = float(request.POST["Vm"]) # m³/kmol
+            T = float(request.POST["T"]) # K
+            Q = float(request.POST["Q"]) # m³/s
             rho = float(request.POST["rho"])
             R = float(8.314) # J / mol · K 
             compressor_payload = {
@@ -237,11 +248,11 @@ def distillator_column(request):
             # Distillator payload
             # ------------------------
 
-            P_in = float(request.POST["P_in"])
-            T_in = float(request.POST["T_in"])
-            flow_rate = float(request.POST["flow_rate"])
-            energy_consumed = float(request.POST["energy_consumed"])
-            efficiency = float(request.POST["efficiency"]) # J / mol · K 
+            P_in = float(request.POST["P_in"]) # Pa
+            T_in = float(request.POST["T_in"]) # K
+            flow_rate = float(request.POST["flow_rate"]) # 
+            energy_consumed = float(request.POST["energy_consumed"]) # Kw
+            efficiency = float(request.POST["efficiency"]) #  
             submit = False
 
             distillator_payload = {
@@ -268,35 +279,6 @@ def distillator_column(request):
 
 
 def heat_exchanger(request): 
-    """
-    
-        # Support Note : 
-        # ------------------------------------------
-        # Heat exchanger parameters
-        
-        m_air = 4.93  # kg/s
-        T_air_in = 298  # K
-        T_air_out = 100  # K
-        T_cooling_flow_in = 77  # K (phase change liquide nytrogen)
-        T_cooling_flow_out = 100  # K
-        m_nitrogen = 2.78  # kg/s
-        D = 0.02  # m (tubes diameter )
-        n = 50  # number of tubes
-        L = 5  # m (exchange length)
-
-        # Heat calorific capacity parameters
-        
-        C_p_air = 1005  # J/kg·K (air heat capacity)
-        C_p_nitrogen_liquid = 2.9 * 1000  # J/kg·K (nytrogen liquide heat capacity J/kg·K)
-
-        # Reynolds parameters
-        
-        rho_air = 1.18  # kg/m³
-        mu_air = 0.0000217  # Pa·s
-        rho_nitrogen = 800  # kg/m³ (nytrogen líquide density)
-        mu_nitrogen = 0.00019  # Pa·s (liquide nytrógen viscosity)
-    
-    """
 
     if request.method == 'GET':
 
@@ -310,6 +292,7 @@ def heat_exchanger(request):
 
             # Input validations
             # -----------------
+
             if (request.POST["m_air"] == "" or request.POST["T_air_in"] == "" or request.POST["T_air_out"] == "" or
                 request.POST["T_cooling_flow_in"] == "" or request.POST["T_cooling_flow_out"] == "" or request.POST["m_nitrogen"] == "" or
                 request.POST["D"] == "" or request.POST["L"] == "" or request.POST["n"] == ""):
@@ -323,7 +306,7 @@ def heat_exchanger(request):
             
 
             # Heat exchanger url 
-            # --------------------
+            # ------------------------
             
             heat_exchanger_url = "http://localhost:7071/api/http_heatexchanger_1"
                 

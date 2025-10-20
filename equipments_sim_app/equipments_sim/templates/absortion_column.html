@@ -11,15 +11,15 @@
         <form method="POST" action="{% url 'absortion_column' %}">
             {% csrf_token %}
 
-            <!-- X starting point -->
+            <!-- X starting point H2O mols/NaOH -->
             <div class="mb-3">
-            <label for="x_starting_point" class="form-label">X starting point</label>
+            <label for="x_starting_point" class="form-label">X starting point H2O mols/NaOH</label>
             <input type="number" step="any" class="form-control" id="x_starting_point" name="x_starting_point" placeholder="e.g. 0">
             </div>
 
-            <!-- Y starting point -->
+            <!-- Y starting point H2O mols/dry air mols -->
             <div class="mb-3">
-            <label for="y_starting_point" class="form-label">Y starting point</label>
+            <label for="y_starting_point" class="form-label">Y starting point H2O mols/dry air mols</label>
             <input type="number" step="any" class="form-control" id="y_starting_point" name="y_starting_point" placeholder="e.g. 0.0048">
             </div>
 
@@ -43,7 +43,7 @@
         </h5>
     </div>
 
-    <!-- Images/Diagrams -->
+    <!-- Images -->
 
     <div class="col-6 d-flex flex-column h-100 p-0">
       
