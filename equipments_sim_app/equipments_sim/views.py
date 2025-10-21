@@ -317,7 +317,15 @@ def distillator_column(request):
                 parameters = request.POST.get('distillator_payload')
 
                 distillator_payload = ast.literal_eval(parameters)
-                distillator_parameters = { 'P_in' : P_in , 'T_in' : T_in , 'N2_out' : N2_out , 'H2_out' : H2_out , 'O2_out' : O2_out , 'efficiency' : efficiency }
+                
+                distillator_parameters = { 
+                    'P_in' : P_in , 
+                    'T_in' : T_in , 
+                    'N2_out' : N2_out , 
+                    'H2_out' : H2_out , 
+                    'O2_out' : O2_out , 
+                    'Efficiency' : efficiency 
+                }
 
                 try: 
                     #distillator_column_publish(driver, server, database, UID, PWD,N2_out,O2_out,Ar_out)
@@ -330,7 +338,7 @@ def distillator_column(request):
                     error ="Error saving config in database"
                     equipments = load_json("equipments")
                     selected_equipment = "distillator_column_design.html"
-                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "distillator_payload" : distillator_payload, "success": "", "error": ""})
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "distillator_payload" : distillator_payload, "success": "", "error": error})
 
 
 
@@ -451,7 +459,7 @@ def heat_exchanger(request):
                     equipments = load_json("equipments")
                     selected_equipment = "heat_exchanger_design.html"
                     return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
-                    "heat_exchanger_parameters": heat_exchanger_parameters, "heat_exchanger_payload": heat_exchanger_payload, "success": "", "error": ""})
+                    "heat_exchanger_parameters": heat_exchanger_parameters, "heat_exchanger_payload": heat_exchanger_payload, "success": "", "error": error})
 
             # Input validations
             # -----------------
@@ -556,6 +564,40 @@ def valve_joule_thompson(request):
 
         try:
 
+            publish_mode = request.POST.get('publish_mode')
+            
+            if publish_mode == "true":
+
+                P_in = request.POST.get('P_in')
+                T_in = request.POST.get('T_in')
+                P_out = request.POST.get('P_out')
+                T_out = request.POST.get('T_out')
+                parameters = request.POST.get('valve_joule_thompson_payload')
+                valve_joule_thompson_payload = ast.literal_eval(parameters)
+                print(valve_joule_thompson_payload)
+                print("pass")
+                valve_joule_thompson_parameters = {
+                    'P_in' : P_in ,
+                    'T_in' : T_in ,
+                    'P_out' : P_out ,
+                    'T_out' : T_out
+                }
+                print("pass")
+
+                try: 
+                    #valve_joule_thompson_publish()
+                    equipments = load_json("equipments")
+                    selected_equipment = "valve_joule_thompson_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+                    "valve_joule_thompson_parameters": valve_joule_thompson_parameters, "valve_joule_thompson_payload": valve_joule_thompson_payload,"success":"Equipment configuration published successfully.", "error": ""})
+                except Exception as e:         
+                    print(e)            
+                    error ="Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "valve_joule_thompson_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+                    "valve_joule_thompson_parameters": valve_joule_thompson_parameters, "valve_joule_thompson_payload": valve_joule_thompson_payload,"success":"", "error": error})
+
             # Input validations
             # -----------------
             
@@ -596,12 +638,13 @@ def valve_joule_thompson(request):
             }
 
             response = requests.post(valve_joule_thompson_url, data=json.dumps(valve_joule_thompson_payload))
-            joule_thompson_valve_parameters = response.json()
-            print(f"Joule Thompson Parameters : {joule_thompson_valve_parameters}")
+            valve_joule_thompson_parameters = response.json()
+            print(f"Joule Thompson Parameters : {valve_joule_thompson_parameters}")
 
             equipments = load_json("equipments")
             selected_equipment = "valve_joule_thompson_design.html"
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "joule_thompson_valve_parameters": joule_thompson_valve_parameters, "error": ""})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+            "valve_joule_thompson_parameters": valve_joule_thompson_parameters, "valve_joule_thompson_payload": valve_joule_thompson_payload,"success":"", "error": ""})
 
         except Exception as e: 
             print(e)            

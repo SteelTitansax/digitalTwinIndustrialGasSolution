@@ -9,40 +9,49 @@
         <h4 class="design-input-form">Design Parameters</h4>
         <form method="POST" action="{% url 'valve_joule_thompson' %}">
             {% csrf_token %}
-            {% if joule_thompson_valve_parameters %}
+            {% if valve_joule_thompson_parameters and valve_joule_thompson_payload %}
             <div class="row">
                 <!-- Single column form inputs -->
                 <div class="col-12">
 
                     <!-- Inlet Pressure -->
                     <div class="mb-3">
-                        <label for="P_in" class="form-label">Inlet Pressure (P_in)</label>
-                        <input type="number" step="any" class="form-control" id="P_in" name="P_in" placeholder="{{joule_thompson_valve_parameters.P_in}} Pa" disabled>
+                        <label for="P_in" class="form-label">P_in - Inlet Pressure (Pa)</label>
+                        <input type="number" step="any" class="form-control design-control" id="P_in" name="P_in" value="{{valve_joule_thompson_parameters.P_in}}" readonly>
                     </div>
 
                     <!-- Inlet Temperature -->
                     <div class="mb-3">
-                        <label for="T_in" class="form-label">Inlet Temperature (T_in)</label>
-                        <input type="number" step="any" class="form-control" id="T_in" name="T_in" placeholder="{{joule_thompson_valve_parameters.T_in}} K" disabled>
+                        <label for="T_in" class="form-label">T_in - Inlet Temperature (K)</label>
+                        <input type="number" step="any" class="form-control design-control" id="T_in" name="T_in" value="{{valve_joule_thompson_parameters.T_in}}" readonly>
                     </div>
 
                     <!-- Outlet Pressure -->
                     <div class="mb-3">
-                        <label for="P_out" class="form-label">Outlet Pressure (P_out)</label>
-                        <input type="number" step="any" class="form-control" id="P_out" name="P_out" placeholder="{{joule_thompson_valve_parameters.P_out}} Pa" disabled>
+                        <label for="P_out" class="form-label">P_out - Outlet Pressure (Pa)</label>
+                        <input type="number" step="any" class="form-control design-control" id="P_out" name="P_out" value="{{valve_joule_thompson_parameters.P_out}}" readonly>
                     </div>
 
                     <!-- Outlet Temperature -->
                     <div class="mb-3">
-                        <label for="T_out" class="form-label">Outlet Temperature (T_out)</label>
-                        <input type="number" step="any" class="form-control" id="T_out" name="T_out" placeholder="{{joule_thompson_valve_parameters.T_out}} K" disabled>
+                        <label for="T_out" class="form-label">T_out - Outlet Temperature (K)</label>
+                        <input type="number" step="any" class="form-control design-control" id="T_out" name="T_out" value="{{valve_joule_thompson_parameters.T_out}}" readonly>
+                    </div>
+
+                    <!-- Hidden variables -->
+
+                    <div class="mb-3">
+                        <input type="hidden" step="any" class="form-control" id="valve_joule_thompson_payload" name="valve_joule_thompson_payload" value="{{valve_joule_thompson_payload}}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode" value="true" readonly>
                     </div>
 
                 </div>
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary w-50 mt-2">Calculate</button>
                 <button id = "publish" type="submit" class="btn btn-success width-45 mt-2">Publish</button>
             </div>
             {% endif%}   
@@ -50,6 +59,14 @@
 
         <p class="notes"><strong>Output parameters: </strong>Outlet Temperature (T_out): This value represents the final temperature of the gas after expansion through the Joule-Thomson valve. It indicates the cooling effect produced by the throttling process at constant enthalpy. A decrease in T_out compared to T_in signifies effective Joule-Thomson cooling.
         Outlet Pressure (P_out): This is the target downstream pressure after the valve. It defines the extent of expansion and is a key input for determining the temperature drop. P_out is typically lower than P_in and helps in characterizing the pressure differential across the valve.</p>
+
+        <h5 class="text-center mt-4 text-danger">
+            {{error}}
+        </h5>
+        <h5 class="text-center mt-4 text-success">
+            {{success}}
+        </h5>
+
     </div>
 
     <!-- Images/3D representation -->
