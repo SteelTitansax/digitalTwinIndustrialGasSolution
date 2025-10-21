@@ -18,6 +18,7 @@ import pyodbc
 import requests
 import json
 import os
+import ast
 
 # Database details 
 # ------------------------------------------
@@ -112,26 +113,41 @@ def absortion_column(request):
 
     else : 
         try:
-
             publish_mode = request.POST.get('publish_mode')
-            
+
             if publish_mode == "true":
+
                 HE = request.POST.get('HE')
                 HETP = request.POST.get('HETP')
                 Xn = request.POST.get('Xn')
+                Yn = request.POST.get('Yn')
                 ns = request.POST.get('ns')
+                parameters = request.POST.get('absortion_column_payload')
+                absortion_column_payload = ast.literal_eval(parameters)
+                x = absortion_column_payload['x']
+                y = absortion_column_payload['y']
+                x_starting_point = absortion_column_payload['x_starting_point']
+                y_starting_point = absortion_column_payload['y_starting_point']
+                absortion_column_parameters = { 'HE' : HE , 'HETP' : HETP , 'Xn' : Xn , 'Yn' : Yn ,  'ns' : ns}
+
                 try: 
 
-                    absortion_column_publish(driver, server, database, UID, PWD, HE, HETP, Xn, ns)
-                    print("Absortion column saved sucessfully in database!")
-                
+                    #absortion_column_publish(driver, server, database, UID, PWD, HE, HETP, Xn, ns)
+                    equipments = load_json("equipments")
+                    selected_equipment = "absortion_column_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment ,
+                         "absortion_column_parameters": absortion_column_parameters, "absortion_column_payload": absortion_column_payload,
+                         "success":"Equipment configuration published successfully.","error": ""})
+ 
                 except Exception as e:                     
-                    print(f"Error saving config in database {e}")
+                    print(e)            
                     error ="Error saving config in database"
                     equipments = load_json("equipments")
                     selected_equipment = "absortion_column_design.html"
-                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "absortion_column_parameters": absortion_column_parameters, "error": error})
-
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment ,
+                         "absortion_column_parameters": absortion_column_parameters, "absortion_column_payload": absortion_column_payload,
+                         "success":"","error": error})
+ 
 
             # Input validations
             # -----------------
@@ -161,19 +177,20 @@ def absortion_column(request):
                 "y": y,
                 "HETP": HETP,
                 "x_starting_point": x_starting_point,
-                "y_starting_point": y_starting_point,
-                "submit": False
+                "y_starting_point": y_starting_point
             }
 
             response = requests.post(absortion_column_url, data=json.dumps(absortion_column_payload))
             absortion_column_parameters = response.json()
-            print(f"Absortion Column Parameters {absortion_column_parameters}")
-
+            
             equipments = load_json("equipments")
             selected_equipment = "absortion_column_design.html"
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "absortion_column_parameters": absortion_column_parameters, "error": ""})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment ,
+                         "absortion_column_parameters": absortion_column_parameters, "absortion_column_payload": absortion_column_payload,
+                         "success":"", "error":""})
 
         except Exception as e: 
+            print(e)            
             equipments = load_json("equipments")
             selected_equipment = "absortion_column.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
@@ -194,23 +211,30 @@ def compressor(request):
         try:
 
             publish_mode = request.POST.get('publish_mode')
-            
+
             if publish_mode == "true":
-               
+                m = request.POST.get('m')
+                W_total = request.POST.get('W_total')
+                P_real = request.POST.get('P_real')
+                parameters = request.POST.get('compressor_payload')
+                compressor_payload = ast.literal_eval(parameters)
+                compressor_parameters = { 'm' : m , 'W_total' : W_total , 'P_real' : P_real }
+
                 try: 
-                    m = request.POST.get('m')
-                    W_total = request.POST.get('W_total')
-                    P_real =  request.POST.get('W_total')
-                    compressor_publish(driver, server, database, UID, PWD, m, W_total, P_real)
-                    print("Compressor saved sucessfully in database!")
-                
-                except Exception as e: 
-                    
-                    print(f"Error saving config in database {e}")
-                    error = "Error saving config in database"
+                    #compressor_publish(driver, server, database, UID, PWD, m, W_total, P_real):
                     equipments = load_json("equipments")
                     selected_equipment = "compressor_design.html"
-                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "compressor_parameters": compressor_parameters, "error": error})
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+                    "compressor_parameters": compressor_parameters, "compressor_payload": compressor_payload,  "success":"Equipment configuration published successfully.","error": ""})
+ 
+                except Exception as e:                     
+                    print(e)            
+                    error ="Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "absortion_column_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment ,
+                         "absortion_column_parameters": absortion_column_parameters, "absortion_column_payload": absortion_column_payload,
+                         "success":"","error": error})
 
 
             # Input validations
@@ -253,13 +277,14 @@ def compressor(request):
 
             response = requests.post(compressor_url, data=json.dumps(compressor_payload))
             compressor_parameters = response.json()
-            print(f"Compressor Parameters {compressor_parameters}")
 
             equipments = load_json("equipments")
             selected_equipment = "compressor_design.html"
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "compressor_parameters": compressor_parameters, "error": ""})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+            "compressor_parameters": compressor_parameters, "compressor_payload": compressor_payload, "success": "", "error": ""})
 
         except Exception as e: 
+            print(e)            
             equipments = load_json("equipments")
             selected_equipment = "compressor.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
@@ -278,6 +303,37 @@ def distillator_column(request):
     else : 
 
         try:
+
+            publish_mode = request.POST.get('publish_mode')
+
+            if publish_mode == "true":
+                P_in = request.POST.get('P_in')
+                T_in = request.POST.get('T_in')
+                N2_out = request.POST.get('N2')
+                H2_out = request.POST.get('H2')
+                O2_out = request.POST.get('O2')
+
+                efficiency = request.POST.get('efficiency')
+                parameters = request.POST.get('distillator_payload')
+
+                distillator_payload = ast.literal_eval(parameters)
+                distillator_parameters = { 'P_in' : P_in , 'T_in' : T_in , 'N2_out' : N2_out , 'H2_out' : H2_out , 'O2_out' : O2_out , 'efficiency' : efficiency }
+
+                try: 
+                    #distillator_column_publish(driver, server, database, UID, PWD,N2_out,O2_out,Ar_out)
+                    equipments = load_json("equipments")
+                    selected_equipment = "distillator_column_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "distillator_payload" : distillator_payload, "success": "Equipment configuration published successfully.", "error": ""})
+
+                except Exception as e:         
+                    print(e)            
+                    error ="Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "distillator_column_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "distillator_payload" : distillator_payload, "success": "", "error": ""})
+
+
+
 
             # Input validations
             # -----------------
@@ -321,9 +377,10 @@ def distillator_column(request):
 
             equipments = load_json("equipments")
             selected_equipment = "distillator_column_design.html"
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "error": ""})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "distillator_parameters": distillator_parameters, "distillator_payload" : distillator_payload, "success": "", "error": ""})
 
-        except Exception as e: 
+        except Exception as e:
+            print(e) 
             equipments = load_json("equipments")
             selected_equipment = "distillator_column.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
@@ -340,6 +397,61 @@ def heat_exchanger(request):
     else:
 
         try:
+
+            publish_mode = request.POST.get('publish_mode')
+            
+            if publish_mode == "true":
+
+                Q_air = request.POST.get('Q_air')
+                Q_nitrogen = request.POST.get('Q_nitrogen')
+                delta_T_ml = request.POST.get('delta_T_ml')
+                delta_P_air = request.POST.get('delta_P_air')
+                m_cooling = request.POST.get('m_cooling')
+                A_tubes = request.POST.get('A_tubes')
+                v_air = request.POST.get('v_air')
+                f_air = request.POST.get('f_air')
+                n = request.POST.get('n')
+                delta_P_nitrogen = request.POST.get('delta_P_nitrogen')
+                v_nitrogen = request.POST.get('v_nitrogen')
+                reynolds_nitrogen = request.POST.get('reynolds_nitrogen')
+                reynolds_air = request.POST.get('reynolds_air')
+                f_nitrogen = request.POST.get('f_nitrogen')
+
+                parameters = request.POST.get('heat_exchanger_payload')
+
+                heat_exchanger_payload = ast.literal_eval(parameters)
+
+                heat_exchanger_parameters = {
+                    'Q_air': Q_air,
+                    'Q_nitrogen': Q_nitrogen,
+                    'delta_T_ml': delta_T_ml,
+                    'delta_P_air' : delta_P_air,
+                    'm_cooling': m_cooling,
+                    'A_tubes': A_tubes,
+                    'v_air': v_air,
+                    'f_air': f_air,
+                    'n': n,
+                    'delta_P_nitrogen': delta_P_nitrogen,
+                    'v_nitrogen': v_nitrogen,
+                    'reynolds_nitrogen': reynolds_nitrogen,
+                    'f_nitrogen': f_nitrogen,
+                    'reynolds_air' : reynolds_air
+                }
+
+                try: 
+                    #distillator_column_publish(driver, server, database, UID, PWD,N2_out,O2_out,Ar_out)
+                    equipments = load_json("equipments")
+                    selected_equipment = "heat_exchanger_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+                    "heat_exchanger_parameters": heat_exchanger_parameters, "heat_exchanger_payload": heat_exchanger_payload, "success": "Equipment configuration published successfully.", "error": ""})
+
+                except Exception as e:         
+                    print(e)            
+                    error ="Error saving config in database"
+                    equipments = load_json("equipments")
+                    selected_equipment = "heat_exchanger_design.html"
+                    return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+                    "heat_exchanger_parameters": heat_exchanger_parameters, "heat_exchanger_payload": heat_exchanger_payload, "success": "", "error": ""})
 
             # Input validations
             # -----------------
@@ -422,9 +534,11 @@ def heat_exchanger(request):
 
             equipments = load_json("equipments")
             selected_equipment = "heat_exchanger_design.html"
-            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "heat_exchanger_parameters": heat_exchanger_parameters, "error": ""})
+            return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , 
+            "heat_exchanger_parameters": heat_exchanger_parameters, "heat_exchanger_payload": heat_exchanger_payload, "success": "", "error": ""})
 
         except Exception as e: 
+            print(e)            
             equipments = load_json("equipments")
             selected_equipment = "heat_exchanger.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})
@@ -490,6 +604,7 @@ def valve_joule_thompson(request):
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment , "joule_thompson_valve_parameters": joule_thompson_valve_parameters, "error": ""})
 
         except Exception as e: 
+            print(e)            
             equipments = load_json("equipments")
             selected_equipment = "valve_joule_thompson.html"    
             return render(request,'landing.html', {"equipments" : equipments, "selected_equipment" : selected_equipment, "error": "Error submiting form, please contact your admin"})

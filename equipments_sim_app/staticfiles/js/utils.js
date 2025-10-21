@@ -14,7 +14,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Publish mode in form
-function setPublish(value) {
-    document.getElementById('publish_mode').value = value;
-  }

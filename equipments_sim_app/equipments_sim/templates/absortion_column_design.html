@@ -10,48 +10,49 @@
         <form method="POST" action="{% url 'absortion_column' %}">
             {% csrf_token %}
 
-            {% if absortion_column_parameters %}
+            {% if absortion_column_parameters and absortion_column_payload %}
         
               <!-- Column Height (m)-->
               <div class="mb-3">
-                <label for="column_height" class="form-label">Column Height</label>
-                <input type="number" step="any" class="form-control" id="column_height" name="column_height" placeholder="{{absortion_column_parameters.HE}} m" disabled>
+                <label for="HE" class="form-label">HE - Column Height (m)</label>
+                <input type="number" step="any" class="form-control design-control" id="HE" name="HE" value ="{{absortion_column_parameters.HE}}" readonly>
               </div>
 
               <!-- HETP (Height Equivalent to a Theoretical Plate) -->
               <div class="mb-3">
-              <label for="HETP" class="form-label">HETP (Height Equivalent to a Theoretical Plate)</label>
-              <input type="number" step="any" class="form-control" id="HETP" name="HETP" placeholder="{{absortion_column_parameters.HETP}} m" disabled>
+                <label for="HETP" class="form-label">HETP - Height Equivalent to a Theoretical Plate (m)</label>
+                <input type="number" step="any" class="form-control design-control" id="HETP" name="HETP" value="{{absortion_column_parameters.HETP}}" readonly>
               </div>
 
               <!-- Liquid Molar Fraction (H2O mols / NaOH mols) (Xn) -->
               <div class="mb-3">
-              <label for="output_concentration" class="form-label">Liquid Molar Fraction (Xn)</label>
-              <input type="number" step="any" class="form-control" id="Xn" name="Xn" placeholder="{{absortion_column_parameters.Xn}} (H2O mols / NaOH mols)" disabled>
+              <label for="Xn" class="form-label">Xn - Liquid Molar Fraction (H2O mols / NaOH mols)</label>
+              <input type="number" step="any" class="form-control design-control" id="Xn" name="Xn" value="{{absortion_column_parameters.Xn}}" readonly>
               </div>
 
               <!-- Gas Molar Fraction (H2O mols / Air mols) (Yn) -->
               <div class="mb-3">
-              <label for="output_concentration" class="form-label">Gas Molar Fraction (Yn)</label>
-              <input type="number" step="any" class="form-control" id="Yn" name="Yn" placeholder="{{absortion_column_parameters.Yn}} (H2O mols / Air mols)" disabled>
+              <label for="Yn" class="form-label">Yn - Gas Molar Fraction (H2O mols / Air mols)</label>
+              <input type="number" step="any" class="form-control design-control" id="Yn" name="Yn" value="{{absortion_column_parameters.Yn}}" readonly>
               </div>
 
               <!-- Number of plates (ns) -->
               <div class="mb-3">
-              <label for="number_plates" class="form-label">Number of plates (ns)</label>
-              <input type="number" step="any" class="form-control" id="number_plates" name="number_plates" placeholder="{{absortion_column_parameters.ns}} adimensional" disabled>
+              <label for="ns" class="form-label">ns - Number of plates (adimensional)</label>
+              <input type="number" step="any" class="form-control design-control" id="ns" name="ns" value="{{absortion_column_parameters.ns}}" readonly>
               </div>
 
-              <!-- Publish variable -->
+              <!-- Hidden variables -->
               <div class="mb-3">
-                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode">
+                <input type="hidden" step="any" class="form-control" id="absortion_column_payload" name="absortion_column_payload" value="{{absortion_column_payload}}" readonly>
+              </div>
+
+              <div class="mb-3">
+                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode" value="true" readonly>
               </div>
 
               <div class="text-center">
-                 <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
-                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2" onclick="setPublish(true)">
-                   Publish
-                 </button>
+                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2">Publish</button>
               </div>
           
         {% endif %}
@@ -65,6 +66,12 @@
           Xn represents the mole fraction of solute in the liquid at the column outlet.  
           ns shows the number of theoretical plates required for the desired separation.
       </p>
+      <h5 class="text-center mt-4 text-danger">
+          {{error}}
+      </h5>
+      <h5 class="text-center mt-4 text-success">
+          {{success}}
+      </h5>
     </div>
 
     <!-- Images/3D representation -->
@@ -77,8 +84,8 @@
 </div>
 {% endblock %}
 
-
 {% block scripts %}
 <script src="{% static 'js/absortion_column.js' %}"></script>
+
 {% endblock %}
 

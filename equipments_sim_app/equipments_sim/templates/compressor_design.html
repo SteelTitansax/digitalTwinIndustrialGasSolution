@@ -14,36 +14,38 @@
         
               <!-- Massic Flow (kg/s) -->
               <div class="mb-3">
-                <label for="m" class="form-label">Massic Flow</label>
-                <input type="number" step="any" class="form-control" id="m" name="m" placeholder="{{compressor_parameters.m}} Kg/s" disabled>
+                <label for="m" class="form-label">m - Massic Flow (Kg/s) </label>
+                <input type="number" step="any" class="form-control design-control" id="m" name="m" value="{{compressor_parameters.m}}" readonly>
               </div>
 
               <!-- W_total (Kw) -->
               <div class="mb-3">
-                <label for="W_total" class="form-label">W_total</label>
-                <input type="number" step="any" class="form-control" id="W_total" name="W_total" placeholder="{{compressor_parameters.W_total}} Kw" disabled>
+                <label for="W_total" class="form-label">W_total (Kw)</label>
+                <input type="number" step="any" class="form-control design-control" id="W_total" name="W_total" value="{{compressor_parameters.W_total}}" readonly>
               </div>
 
               <!-- P_real (Kw) -->
               <div class="mb-3">
-                <label for="P_real" class="form-label">P_real</label>
-                <input type="number" step="any" class="form-control" id="P_real" name="P_real" placeholder="{{compressor_parameters.P_real}} Kw" disabled>
+                <label for="P_real" class="form-label">P_real (Kw)</label>
+                <input type="number" step="any" class="form-control design-control" id="P_real" name="P_real" value="{{compressor_parameters.P_real}}" readonly>
               </div>
 
-              <!-- Publish variable -->
+              <!-- Hidden variables -->
               <div class="mb-3">
-                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode">
+                <input type="hidden" step="any" class="form-control" id="compressor_payload" name="compressor_payload" value="{{compressor_payload}}" readonly>
               </div>
-              
+
+              <div class="mb-3">
+                <input type="hidden" step="any" class="form-control" id="publish_mode" name="publish_mode" value="true" readonly>
+              </div>
+
               <div class="text-center">
-                 <button id = "calculate" type="submit" class="btn btn-primary width-45 mt-2">Calculate</button>      
-                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2" onclick="setPublish(true)">
-                   Publish
-                 </button>
+                 <button id="publish" type="submit" value="" class="btn btn-success width-45 mt-2">Publish</button>
               </div>
+          {% endif%}   
           </form>
 
-        {% endif%}   
+        
        <p class="notes">
           <strong>Output Parameters:</strong>  
           The compressor outputs include key performance parameters.
@@ -52,6 +54,12 @@
           W_total (kJ) represents the total work input required for compression.
           P_real (W) is the actual power consumption during operation.
       </p>
+      <h5 class="text-center mt-4 text-danger">
+          {{error}}
+      </h5>
+      <h5 class="text-center mt-4 text-success">
+          {{success}}
+      </h5>
     </div>
 
     <!-- Images/3D representation -->
