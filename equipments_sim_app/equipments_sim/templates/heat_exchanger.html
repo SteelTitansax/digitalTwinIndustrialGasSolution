@@ -6,7 +6,6 @@
   <div class="row h-100">
 
     <!-- Form -->
-
     <div class="col-6">
         <h4 class="design-input-form">Heat Exchanger Parameters</h4>
         <form method="POST" action="{% url 'heat_exchanger' %}">
@@ -86,6 +85,7 @@
 
         <p class="notes"><strong>Note: </strong>The inputs on this screen define the operating and geometric conditions of the heat exchanger.
      They are used to calculate heat transfer, flow velocities, pressure drops, and exchanger sizing parameters.</p>
+        <!-- Error / Success handling -->
         <h5 class="text-center mt-4 text-danger">
             {{error}}
         </h5>

@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------------------------
+# Author : Manuel Portero Leiva 
+# -----------------------------------------------------------------------------------------------
+# Purpose : Variables security configuration for IndSim app.
+# -----------------------------------------------------------------------------------------------
+
 import os
 from pydantic import validator
 from pydantic_settings import BaseSettings, SettingsConfigDict

@@ -6,7 +6,6 @@
   <div class="row h-100">
 
     <!-- Form -->
-
     <div class="col-6">
         <h4 class="design-input-form">Design Parameters</h4>
         <form method="POST" action="{% url 'heat_exchanger' %}">
@@ -18,49 +17,42 @@
               <div class="col-6">
 
                   <!-- Heat transfered (Q) -->
-      
                   <div class="mb-3">
                       <label for="Q_air" class="form-label">Q - Heat transfered (J/s)</label>
                       <input type="number" step="any" class="form-control design-control" id="Q_air" name="Q_air" value="{{heat_exchanger_parameters.Q_air}}" readonly>
                   </div>
 
                   <!-- Nitrogen Air Flow (Q_nitrogen) -->
-      
                   <div class="mb-3">
                       <label for="Q_nitrogen" class="form-label">Q Nitrogen - Nitrogen Air Flow (J/s)</label>
                       <input type="number" step="any" class="form-control design-control" id="Q_nitrogen" name="Q_nitrogen" value="{{heat_exchanger_parameters.Q_air}}" readonly>
                   </div>
 
                   <!-- Heater Temperature Variation (delta_T_ml)-->
-      
                   <div class="mb-3">
                       <label for="delta_T_ml" class="form-label">delta_T_ml - Heater Temperature Variation (K)</label>
                       <input type="number" step="any" class="form-control design-control" id="delta_T_ml" name="delta_T_ml" value="{{heat_exchanger_parameters.delta_T_ml}}" readonly>
                   </div>
 
                   <!-- Cooling Mass Flow (m cooling) -->
-      
                   <div class="mb-3">
                       <label for="m_cooling" class="form-label">m cooling - Cooling Mass Flow (kg/s)</label>
                       <input type="number" step="any" class="form-control design-control" id="m_cooling" name="m_cooling" value="{{heat_exchanger_parameters.m_cooling}}" readonly>
                   </div>
 
                   <!-- Tubes Area (A_tubes) -->
-      
                   <div class="mb-3">
                       <label for="A_tubes" class="form-label">A_tubes - Tubes Area (m2) </label>
                       <input type="number" step="any" class="form-control design-control" id="A_tubes" name="A_tubes" value="{{heat_exchanger_parameters.A_tubes}}" readonly>
                   </div>
 
                   <!-- Air Speed (v_air) -->
-      
                   <div class="mb-3">
                       <label for="v_air" class="form-label">v_air - Air Speed (m/s)</label>
                       <input type="number" step="any" class="form-control design-control" id="v_air" name="v_air" value="{{heat_exchanger_parameters.v_air}}" readonly>
                   </div>
 
                   <!-- Reynolds Air -->
-       
                   <div class="mb-3">
                       <label for="reynolds_air" class="form-label">Reynolds air - (adimensional)</label>
                       <input type="number" step="any" class="form-control design-control" id="reynolds_air" name="reynolds_air" value="{{heat_exchanger_parameters.reynolds_air}}" readonly>
@@ -108,7 +100,6 @@
                   </div>
                 
                   <!-- Hidden variables -->
-
                   <div class="mb-3">
                     <input type="hidden" step="any" class="form-control" id="heat_exchanger_payload" name="heat_exchanger_payload" value="{{heat_exchanger_payload}}" readonly>
                   </div>
@@ -133,6 +124,7 @@
         These outputs help determine flow velocity, Reynolds numbers, and friction factors for both fluids.  
         </p>
 
+        <!-- Error / Success handling -->
         <h5 class="text-center mt-4 text-danger">
             {{error}}
         </h5>
@@ -143,7 +135,6 @@
     </div>
 
     <!-- Images/3D representation -->
-
     <div class="col-6 d-flex flex-column h-100 p-0">
       <div id="heatExchanger" style="width: 100%; height: 700px;"></div>  
     </div>

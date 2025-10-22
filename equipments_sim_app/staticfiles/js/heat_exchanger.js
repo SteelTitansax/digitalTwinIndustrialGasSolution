@@ -1,3 +1,10 @@
+// 3D models IndSim app  
+// -----------------------------------------------------------------------------------------------
+// Author : Manuel Portero Leiva 
+// -----------------------------------------------------------------------------------------------
+// Purpose : Heat exchanger 3d Renderization, part of the IndSim front-end.
+// ----------------------------------------------------------------------------------------------- 
+
 document.addEventListener('DOMContentLoaded', function () {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf5f5f5);

@@ -1,8 +1,7 @@
-# Views section DWSIM app  
 # -----------------------------------------------------------------------------------------------
 # Author : Manuel Portero Leiva 
 # -----------------------------------------------------------------------------------------------
-# Purpose : URL configuration for DWSim app.
+# Purpose : URL configuration for IndSim app.
 # --------------------------------------------------------------
 # The `urlpatterns` list routes URLs to views. For more information please see:
 # https://docs.djangoproject.com/en/5.2/topics/http/urls/

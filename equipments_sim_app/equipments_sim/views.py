@@ -1,8 +1,8 @@
-# Views section DWSIM app  
+# Views section IndSim app  
 # -----------------------------------------------------------------------------------------------
 # Author : Manuel Portero Leiva 
 # -----------------------------------------------------------------------------------------------
-# Purpose : Controller part of the DWSIM application. Acts as a app backend.
+# Purpose : Controller part of the IndSim application. Acts as part of the backend.
 # ----------------------------------------------------------------------------------------------- 
 
 
@@ -22,6 +22,7 @@ import ast
 
 # Database details 
 # ------------------------------------------
+
 server = os.getenv("AZURE_SQL_SERVER", settings.azure_settings.SERVER)
 database = os.getenv("AZURE_SQL_DATABASE", settings.azure_settings.DATABASE)
 username = os.getenv("AZURE_SQL_USERNAME", settings.azure_settings.USERNAME)

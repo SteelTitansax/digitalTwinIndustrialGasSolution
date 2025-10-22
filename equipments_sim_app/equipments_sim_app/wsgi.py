@@ -1,11 +1,12 @@
-"""
-WSGI config for equipments_sim_app project.
+# -----------------------------------------------------------------------------------------------
+# Author : Manuel Portero Leiva 
+# -----------------------------------------------------------------------------------------------
+# Purpose : WSGI config for equipments_sim_app project.
+# It exposes the WSGI callable as a module-level variable named ``application``.
+# For more information on this file, see
+# https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+# --------------------------------------------------------------
 
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
-"""
 
 import os
 

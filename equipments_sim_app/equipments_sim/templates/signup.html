@@ -10,7 +10,6 @@
     {{error}}
 </h5>
  {% csrf_token %}
-
  <div class = "text-center">
                 <form class="card card-body  signing" action="/signup/" method="POST">
                     {% csrf_token %}
@@ -33,6 +32,4 @@
                     </button>
                 </form>
 </div>
-
-
 {% endblock %}

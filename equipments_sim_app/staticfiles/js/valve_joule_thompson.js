@@ -1,3 +1,10 @@
+// 3D models IndSim app  
+// -----------------------------------------------------------------------------------------------
+// Author : Manuel Portero Leiva 
+// -----------------------------------------------------------------------------------------------
+// Purpose : Valve Joule-Thompson 3d Renderization, part of the IndSim front-end.
+// ----------------------------------------------------------------------------------------------- 
+
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('valveJouleThompson');
     if (!container) {
